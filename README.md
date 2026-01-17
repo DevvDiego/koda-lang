@@ -1,1 +1,1 @@
-# prac-lang
+# koda-lang
