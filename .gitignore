@@ -1,1 +1,27 @@
 docs/images/*
+
+# Dependencias
+node_modules/
+.pnpm-debug.log*
+
+# Compilación / Salida
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Archivos del Sistema / Editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Temporales
+.cache/
+.temp/
+.tmp/
