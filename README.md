@@ -15,3 +15,5 @@ Una vez instaladas las dependencias puedes empezar a trabajar usando
 ``` bash
 npm run dev
 ```
+
+Y podras ir viendo los cambios y errores en la terminal.
