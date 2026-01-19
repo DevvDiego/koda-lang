@@ -2,4 +2,4 @@
 
 import { tokenize } from "./lexer";
 
-console.log(tokenize("qwe123{}"))
+console.log(tokenize("let variable = mod(10);"))
