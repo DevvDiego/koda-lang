@@ -11,13 +11,21 @@ class TokenType(Enum):
     ELSE = "else"
     WHILE = "while"
     FUNCTION = "function"
+    PRINT = "print"
     
-    # Simbolos
+    # Aritmetica
     PLUS = "+"
     MINUS = "-"
+    MULT = "*"
+    DIV = "/"
+
+    # Simbolos
+    DOUBLEQOUT = "\""    
     ASSIGN = "="
     LPAREN = "("
     RPAREN = ")"
+    LBRACE = "{"
+    RBRACE = "}"
     SEMICOLON = ";" 
     
     # Literales e identificadores
