@@ -25,6 +25,16 @@ class TokenType(Enum):
     NUMBER = "NUMBER" # numero
     EOF = "EOF"       # Fin de archivo (usado en el Parser)
 
+    @classmethod
+    def keyword_exists(cls, valor: str):
+        """
+        Busca si un string pertenece a algun token estatico.
+        """
+        for item in cls:
+            if item.value == valor:
+                return item
+        return None
+
 
 
 @dataclass # define la calse como solamente datos
