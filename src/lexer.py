@@ -1,4 +1,4 @@
-from models.Token import TokenType, Token
+from models.token import TokenType, Token
 
 
 def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
