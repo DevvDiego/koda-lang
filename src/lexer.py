@@ -9,9 +9,16 @@ def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
     return Token(type, value, line, col);
 
 # tomando de ejemplo la cadena "let x = 10 * 2 + 1"
-src = "let x = 10 * 2 + 1 \n" \
-"if 2 * 2 = 4"
+    
+# only works because each char has a space in between even parenthesis
+src = "let x = 10 * 2 + 1"
 
+# src = "let x = 10 * 2 + 1 \n" \
+# "if (2 * 2) = 4 {" \
+# " print ( \" something \" ) }"
+
+
+## NEEDS TO BE PERSONALIZED SPLITTING (only works when theres spaces in between)
 splitted_chars = src.split() # src.split() # returns ['let', 'x', '=', '10', '*', '2', '+', '1']
 
 tokens = []
