@@ -1,4 +1,4 @@
-from enum import Enum, auto
+from enum import Enum
 from dataclasses import dataclass
 
 class TokenType(Enum):
@@ -6,26 +6,25 @@ class TokenType(Enum):
     Estrictamente define los tipos de token existentes
     """
 
-    ## Usar auto asigna automaticamente un numero identificador a cada token construido
-
     # Palabras reservadas
-    IF = auto()
-    ELSE = auto()
-    WHILE = auto()
-    FUNCTION = auto()
+    IF = "if"
+    ELSE = "else"
+    WHILE = "while"
+    FUNCTION = "function"
     
     # Simbolos
-    PLUS = auto()      # +
-    MINUS = auto()     # -
-    ASSIGN = auto()    # =
-    LPAREN = auto()    # (
-    RPAREN = auto()    # )
-    SEMICOLON = auto() # ;
+    PLUS = "+"
+    MINUS = "-"
+    ASSIGN = "="
+    LPAREN = "("
+    RPAREN = ")"
+    SEMICOLON = ";" 
     
     # Literales e identificadores
-    ID = auto()        # nombres de variables
-    NUMBER = auto()    # numero
-    EOF = auto()       # Fin de archivo (para el Parser)
+    ID = "ID"         # nombres de variables
+    NUMBER = "NUMBER" # numero
+    EOF = "EOF"       # Fin de archivo (usado en el Parser)
+
 
 
 @dataclass # define la calse como solamente datos
