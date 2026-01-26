@@ -12,6 +12,7 @@ Thumbs.db
 *.swp
 
 # Temporales
+__pycache__
 .cache/
 .temp/
 .tmp/
