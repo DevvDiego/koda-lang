@@ -17,8 +17,8 @@ src = "let x = 10 * 2 + 1"
 # "if (2 * 2) = 4 {" \
 # " print ( \" something \" ) }"
 
-
-## NEEDS TO BE PERSONALIZED SPLITTING (only works when theres spaces in between)
+## REVIEW TODO TASK HERE
+## NEEDS TO BE PERSONALIZED SPLITTING (otherwise only works when theres spaces in between)
 splitted_chars = src.split() # src.split() # returns ['let', 'x', '=', '10', '*', '2', '+', '1']
 
 tokens = []
