@@ -16,6 +16,10 @@ def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
 #"print(x);"
 #"if((2*2)=4){" \
 
+#TODO averiguar porque al usar ; al final de un string "" no lo reconoce el lexer
+src = "print(x);" #esta cadena no identifica el ; al final
+
+
 src = """
 let x = 10*2+1;
 print(\"something\");
@@ -94,10 +98,11 @@ while flag_stopLexer == False:
 
 
     #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
-    if( splitter.current_char in [';', '"','+', '-', '*', '/', '=', '(', ')' '{', '}'] ):
+    if( splitter.current_char in [';', '"', '+', '-', '*', '/', '=', '(', ')', '{', '}'] ):
         foundOperator()
         #aqui no agrego while porque aun son operadores de un solo digito
         token.append(splitter.current_char)
+        print("operador encontrado")
 
 
 
