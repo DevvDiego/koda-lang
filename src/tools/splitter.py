@@ -37,7 +37,7 @@ class Splitter():
         """
         if( self.isInBounds(self.current_position+1) ):
             print("Imposible avanzar, out of bounds")
-            return
+            return ""
         
         return self.src[self.current_position + 1]
     
