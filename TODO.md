@@ -8,3 +8,7 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 - [] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
 - [] Agregar todas las Palabras Reservadas dentro de la clase TokenType
+
+- [] Verificar si el if deberia ser una cadena de if-elif para manejar tokens no reconocidos, o incluso usar un match.
+
+- [] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido?

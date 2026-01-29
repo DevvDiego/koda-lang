@@ -102,7 +102,6 @@ while flag_stopLexer == False:
         foundOperator()
         #aqui no agrego while porque aun son operadores de un solo digito
         token.append(splitter.current_char)
-        print("operador encontrado")
 
 
 
@@ -127,10 +126,23 @@ while flag_stopLexer == False:
     if(splitter.current_char.isspace()):
         foundSpace()
         # tomar en cuenta los espacios? yo creo no
-        #token.append(splitter.current_char)
+        # token.append(splitter.current_char)
         # igual aqui los espacios son solo un caracter
         #print(splitter.current_char, splitter.current_position)
-
+    
+    
+    
+    #TODO revisar si deberia hacer if y elif en lugar de simples ifs para poder manejar
+    #el caso donde un caracer sea no reconocido
+    
+    #si es un caracter no reconocido
+    #if(flag_isLetter or flag_isNum or flag_isOperator or flag_isSpace):
+        #hacemos saber que tenemos un caracter no reconocido
+    #    print(f"""
+    #          [LEXER] Caracter no reconocido: 
+    #          value:{splitter.current_char}, pos:{splitter.current_position}"""
+    #        )
+        
 
 
 
@@ -140,7 +152,10 @@ while flag_stopLexer == False:
         continue
 
     
-    tokens.append(token)
+    #append the token only if its not empty
+    if( len(token) > 0):
+        tokens.append(token)
+
     splitter.next_char()
 
 
