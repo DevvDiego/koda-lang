@@ -1,4 +1,5 @@
 from models.token import TokenType, Token
+from tools.splitter import Splitter
 
 
 def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
@@ -10,26 +11,94 @@ def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
 
 # tomando de ejemplo la cadena "let x = 10 * 2 + 1"
     
-# only works because each char has a space in between even parenthesis
-src = "let x = 10 * 2 + 1"
+src =  "let x = 10 * 2 + 1 " \
+"if (2 * 2) = 4 {" \
+" print ( \" something \" ) }"
 
-# src = "let x = 10 * 2 + 1 \n" \
-# "if (2 * 2) = 4 {" \
-# " print ( \" something \" ) }"
 
-## REVIEW TODO TASK HERE
-## NEEDS TO BE PERSONALIZED SPLITTING (otherwise only works when theres spaces in between)
-splitted_chars = src.split() # src.split() # returns ['let', 'x', '=', '10', '*', '2', '+', '1']
+splitter = Splitter(src)
 
 tokens = []
 
 
+#flags del caracter actual
+flag_isLetter = False;
+flag_isOperator = False;
+flag_isNum = False;
+flag_isSpace = False;
 
-while len(splitted_chars) > 0:
-    isCurrentNum = False
-    currentChar = splitted_chars.pop(0)
+#flag del caracter proximo (obtenido usando peek)
+flag_isNextLetter = False;
+flag_isNextOperator = False;
+flag_isNextNum = False;
+flag_isNextSpace = False
 
-    isKeyword = TokenType.keyword_exists(currentChar)
+flag_stopLexer = False;
+
+def foundLetter():
+    """Sets the letter flag and unsets every other flag"""
+    flag_isLetter = True;
+    flag_isOperator = False
+    flag_isNum = False;
+    flag_isSpace = False
+
+def foundOperator():
+    """Sets the operator flag and unsets every other flag"""
+    flag_isLetter = False;
+    flag_isOperator = True
+    flag_isNum = False;
+    flag_isSpace = False
+
+def foundNum():
+    """Sets the num flag and unsets every other flag"""
+    flag_isLetter = False;
+    flag_isOperator = False
+    flag_isNum = True;
+    flag_isSpace = False
+
+def foundSpace():
+    """Sets the space flag and unsets every other flag"""
+    flag_isLetter = False;
+    flag_isOperator = False
+    flag_isNum = False;
+    flag_isSpace = True
+
+
+while flag_stopLexer == False:
+    #deberia quiza agregar verificacion aqui o en el splitter para que el src no sea algo vacio???
+
+    #si es una letra
+    if(splitter.current_char.isalpha()):
+        foundLetter()
+        print(splitter.current_char, splitter.current_position)
+
+    #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
+    if( splitter.current_char in ['+', '-', '*', '/', '=', '(', ')' '{', '}'] ):
+        foundOperator()
+        print(splitter.current_char, splitter.current_position)    
+
+    #si es un numero
+    if(splitter.current_char.isdigit()):
+        foundNum()
+        print(splitter.current_char, splitter.current_position)
+
+    #si es un espacio
+    if(splitter.current_char.isspace()):
+        foundSpace()
+        print(splitter.current_char, splitter.current_position)
+
+
+    # TODO identificar posible mejor forma de manejar los EOF
+    if( (splitter.isInBounds( splitter.current_position + 1 )) ):
+        flag_stopLexer = True
+        continue
+
+    
+
+    splitter.next_char()
+
+
+"""     isKeyword = TokenType.keyword_exists(splitter.current_char)
 
     if isKeyword:
         keyword = isKeyword
@@ -49,7 +118,7 @@ while len(splitted_chars) > 0:
     # Si nada de lo anterior pasa, por defecto, asumimos que es un identificador (ID)
     tokens.append(
         buildToken(TokenType.ID, currentChar, 0, 0)
-    )
+    ) """
     
     
 
