@@ -73,7 +73,7 @@ while flag_stopLexer == False:
         print(splitter.current_char, splitter.current_position)
 
     #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
-    if( splitter.current_char in ['+', '-', '*', '/', '=', '(', ')' '{', '}'] ):
+    if( splitter.current_char in ['"','+', '-', '*', '/', '=', '(', ')' '{', '}'] ):
         foundOperator()
         print(splitter.current_char, splitter.current_position)    
 
