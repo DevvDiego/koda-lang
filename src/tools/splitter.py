@@ -1,5 +1,3 @@
-
-
 class Splitter():
     """
     Splitter personalizado que nos permite mover posiciones y hacer peek al siguiente valor
@@ -26,8 +24,9 @@ class Splitter():
         """
         Mueve el puntero al siguiente caracter de src
         """
-        if( self.current_position + 1 > self.src_length  ):
-            print("Imposible avanzar al siguiente caracter, out of bounds")
+        if( self.isInBounds( self.current_position + 1 ) ):
+            print("Imposible avanzar, out of bounds")
+            return
 
         self.current_position = self.current_position + 1
         self.current_char = self.src[self.current_position]
@@ -36,12 +35,21 @@ class Splitter():
         """
         Revisa el valor del siguiente caracter en src sin mover el puntero
         """
-        if( self.current_position + 1 > self.src_length  ):
-            print("Imposible avanzar al siguiente caracter, out of bounds")
+        if( self.isInBounds(self.current_position+1) ):
+            print("Imposible avanzar, out of bounds")
+            return
         
         return self.src[self.current_position + 1]
     
     def return_current_char(self):
         return self.current_char
+    
+    def isInBounds(self, idx:int):
+        if idx < 0:
+            return True
 
+        if idx >= self.src_length:
+            return True
 
+        return False
+        
