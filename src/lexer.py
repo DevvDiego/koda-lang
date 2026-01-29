@@ -11,9 +11,16 @@ def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
 
 # tomando de ejemplo la cadena "let x = 10 * 2 + 1"
     
-src =  "let x = 10 * 2 + 1 " \
-"if (2 * 2) = 4 {" \
-" print ( \" something \" ) }"
+#src =  "let x = 10*2+1;"\
+#"print(\"something\");"\
+#"print(x);"
+#"if((2*2)=4){" \
+
+src = """
+let x = 10*2+1;
+print(\"something\");
+print(x);
+"""
 
 
 splitter = Splitter(src)
@@ -35,6 +42,8 @@ flag_isNextSpace = False
 
 flag_stopLexer = False;
 
+#funciones utilitarias para modificar los flags de forma consistente
+#quiza cambiar el nombre a flagLetter y similares para mejor entendimiento?
 def foundLetter():
     """Sets the letter flag and unsets every other flag"""
     flag_isLetter = True;
@@ -67,25 +76,57 @@ def foundSpace():
 while flag_stopLexer == False:
     #deberia quiza agregar verificacion aqui o en el splitter para que el src no sea algo vacio???
 
+    token = []
+
     #si es una letra
     if(splitter.current_char.isalpha()):
         foundLetter()
-        print(splitter.current_char, splitter.current_position)
+        #averiguar si el siguiente caracter es caracter y si si, seguir agregando como token
+        while True:
+            if( (splitter.peek_next().isalpha()) == False ):
+                # añadir el caracter actual antes de salir
+                token.append(splitter.current_char) 
+                break #terminar el while si el siguiente caracter no es letra
+            
+            token.append(splitter.current_char)
+            splitter.next_char();
+
+
 
     #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
-    if( splitter.current_char in ['"','+', '-', '*', '/', '=', '(', ')' '{', '}'] ):
+    if( splitter.current_char in [';', '"','+', '-', '*', '/', '=', '(', ')' '{', '}'] ):
         foundOperator()
-        print(splitter.current_char, splitter.current_position)    
+        #aqui no agrego while porque aun son operadores de un solo digito
+        token.append(splitter.current_char)
+
+
+
 
     #si es un numero
     if(splitter.current_char.isdigit()):
         foundNum()
-        print(splitter.current_char, splitter.current_position)
+        #averiguar si el siguiente caracter es digito y si si, seguir agregando como token
+        while True:
+            if( (splitter.peek_next().isdigit()) == False ):
+                # añadir el caracter actual antes de salir
+                token.append(splitter.current_char) 
+                break #terminar el while si el siguiente caracter no es letra
+            
+            token.append(splitter.current_char)
+            splitter.next_char();
+
+
+
 
     #si es un espacio
     if(splitter.current_char.isspace()):
         foundSpace()
-        print(splitter.current_char, splitter.current_position)
+        # tomar en cuenta los espacios? yo creo no
+        #token.append(splitter.current_char)
+        # igual aqui los espacios son solo un caracter
+        #print(splitter.current_char, splitter.current_position)
+
+
 
 
     # TODO identificar posible mejor forma de manejar los EOF
@@ -94,7 +135,7 @@ while flag_stopLexer == False:
         continue
 
     
-
+    tokens.append(token)
     splitter.next_char()
 
 
