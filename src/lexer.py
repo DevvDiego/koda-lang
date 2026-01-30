@@ -64,7 +64,7 @@ while flag_stopLexer == False:
             token.append(splitter.current_char)
             splitter.next_char();
 
-
+    #TODO figure out how to make the other token identification to work correctly
 
     #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
     if( splitter.current_char in [';', '"', '+', '-', '*', '/', '=', '(', ')', '{', '}'] ):
@@ -120,8 +120,8 @@ while flag_stopLexer == False:
 
     
     #append the token only if its not empty
-    if( len(token) > 0):
-        tokens.append(token)
+    """ if( len(token) > 0):
+        tokens.append(token) """
 
     splitter.next_char()
 
@@ -150,7 +150,5 @@ while flag_stopLexer == False:
 
 
 for token in tokens:
+    print()
     print(token)
-    
-print()
-print(tokens)

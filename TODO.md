@@ -3,6 +3,8 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [x] Generar un splitting personalizado, para ir agrupando caracter por caracter de forma automatica y poder revisar si es un keyword o no.
 
+- [] Averiguar como hacer que los otros tipos de identifiacacion de token funcionen correctamente
+
 - [] Generar la tokenizacion final despues de los pasos del splitter.
 
 - [] Revisar alguna forma mas optima de identificar letras y caracteres especiales como * / - +, quiza usando regex?
