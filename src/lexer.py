@@ -2,12 +2,22 @@ from models.token import TokenType, Token
 from tools.splitter import Splitter
 
 
-def buildToken(type:TokenType, value:str, line:int, col:int) -> Token :
+def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID) -> Token :
     """
     Builds a standarized token
     """
 
-    return Token(type, value, line, col);
+    # une todos los caracteres splitteados en una sola cadena
+    joined_token_chars = "".join(value)    
+
+    isKeyword = TokenType.keyword_exists(joined_token_chars)
+
+    if(isKeyword):
+        keyword = isKeyword
+        type = keyword
+
+
+    return Token(type, joined_token_chars, line, col);
 
 # tomando de ejemplo la cadena "let x = 10 * 2 + 1"
     
@@ -32,51 +42,7 @@ splitter = Splitter(src)
 tokens = []
 
 
-#flags del caracter actual
-flag_isLetter = False;
-flag_isOperator = False;
-flag_isNum = False;
-flag_isSpace = False;
-
-#flag del caracter proximo (obtenido usando peek)
-flag_isNextLetter = False;
-flag_isNextOperator = False;
-flag_isNextNum = False;
-flag_isNextSpace = False
-
 flag_stopLexer = False;
-
-#funciones utilitarias para modificar los flags de forma consistente
-#quiza cambiar el nombre a flagLetter y similares para mejor entendimiento?
-def foundLetter():
-    """Sets the letter flag and unsets every other flag"""
-    flag_isLetter = True;
-    flag_isOperator = False
-    flag_isNum = False;
-    flag_isSpace = False
-
-def foundOperator():
-    """Sets the operator flag and unsets every other flag"""
-    flag_isLetter = False;
-    flag_isOperator = True
-    flag_isNum = False;
-    flag_isSpace = False
-
-def foundNum():
-    """Sets the num flag and unsets every other flag"""
-    flag_isLetter = False;
-    flag_isOperator = False
-    flag_isNum = True;
-    flag_isSpace = False
-
-def foundSpace():
-    """Sets the space flag and unsets every other flag"""
-    flag_isLetter = False;
-    flag_isOperator = False
-    flag_isNum = False;
-    flag_isSpace = True
-
-
 while flag_stopLexer == False:
     #deberia quiza agregar verificacion aqui o en el splitter para que el src no sea algo vacio???
 
@@ -84,12 +50,15 @@ while flag_stopLexer == False:
 
     #si es una letra
     if(splitter.current_char.isalpha()):
-        foundLetter()
         #averiguar si el siguiente caracter es caracter y si si, seguir agregando como token
         while True:
             if( (splitter.peek_next().isalpha()) == False ):
                 # añadir el caracter actual antes de salir
-                token.append(splitter.current_char) 
+                token.append(splitter.current_char)
+
+                #no tokentype pasado porque se espera que pueda ser algun keyword, sino sera ID
+                tokens.append( buildToken(0,0,token) )
+
                 break #terminar el while si el siguiente caracter no es letra
             
             token.append(splitter.current_char)
@@ -99,7 +68,6 @@ while flag_stopLexer == False:
 
     #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
     if( splitter.current_char in [';', '"', '+', '-', '*', '/', '=', '(', ')', '{', '}'] ):
-        foundOperator()
         #aqui no agrego while porque aun son operadores de un solo digito
         token.append(splitter.current_char)
 
@@ -108,7 +76,6 @@ while flag_stopLexer == False:
 
     #si es un numero
     if(splitter.current_char.isdigit()):
-        foundNum()
         #averiguar si el siguiente caracter es digito y si si, seguir agregando como token
         while True:
             if( (splitter.peek_next().isdigit()) == False ):
@@ -124,8 +91,8 @@ while flag_stopLexer == False:
 
     #si es un espacio
     if(splitter.current_char.isspace()):
-        foundSpace()
-        # tomar en cuenta los espacios? yo creo no
+        pass
+        # tomar en cuenta los espacios? yo creo no ya que tenemos el semicolon (;)
         # token.append(splitter.current_char)
         # igual aqui los espacios son solo un caracter
         #print(splitter.current_char, splitter.current_position)
@@ -180,9 +147,10 @@ while flag_stopLexer == False:
     tokens.append(
         buildToken(TokenType.ID, currentChar, 0, 0)
     ) """
-    
-    
 
 
 for token in tokens:
-    print(token);
+    print(token)
+    
+print()
+print(tokens)
