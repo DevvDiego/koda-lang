@@ -67,8 +67,7 @@ while flag_stopLexer == False:
 
 
 
-    #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
-    """ is_operator = splitter.current_char in ';"+-*/=(){}' #devuelve el caracter encontrado """
+    #si es una operador
     possible_operator = TokenType.keyword_exists(splitter.current_char)
 
     if( possible_operator ):

@@ -3,11 +3,11 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [x] Generar un splitting personalizado, para ir agrupando caracter por caracter de forma automatica y poder revisar si es un keyword o no.
 
-- [] Averiguar como hacer que los otros tipos de identifiacacion de token funcionen correctamente
+- [x] Averiguar como hacer que los otros tipos de identifiacacion de token funcionen correctamente
 
 - [x] Generar la tokenizacion final despues de los pasos del splitter.
 
-- [] Revisar alguna forma mas optima de identificar letras y caracteres especiales como * / - +, quiza usando regex?
+- [x] Revisar alguna forma mas optima de identificar letras y caracteres especiales como * / - +, quiza usando regex?
 
 - [] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
