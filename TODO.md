@@ -5,7 +5,7 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [] Averiguar como hacer que los otros tipos de identifiacacion de token funcionen correctamente
 
-- [] Generar la tokenizacion final despues de los pasos del splitter.
+- [x] Generar la tokenizacion final despues de los pasos del splitter.
 
 - [] Revisar alguna forma mas optima de identificar letras y caracteres especiales como * / - +, quiza usando regex?
 
@@ -15,6 +15,8 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [] Verificar si el if deberia ser una cadena de if-elif para manejar tokens no reconocidos, o incluso usar un match.
 
-- [] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido?
+- [] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido? De todas formas no es un error, solo algo a tomar en cuenta en los ejemplos
 
 - [] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
+
+- [] Empezar con la parte de la interfaz usando Flask? o Tkinter? Hay que verlo por el lado en el que todos logren entender y aportar en cierta medida.
