@@ -34,6 +34,8 @@ class TokenType(Enum):
     NUMBER = "NUMBER" # numero
     EOF = "EOF"       # Fin de archivo (usado en el Parser)
 
+
+    #TODO quizas añadir una optimizacion seria lo justo? un map en vez del bucle
     @classmethod
     def keyword_exists(cls, valor: str):
         """
