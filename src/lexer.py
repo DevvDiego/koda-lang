@@ -64,12 +64,20 @@ while flag_stopLexer == False:
             token.append(splitter.current_char)
             splitter.next_char();
 
-    #TODO figure out how to make the other token identification to work correctly
+
+
 
     #si es una operador (TODO Revisar alguna manera mejor de analizar esto)
-    if( splitter.current_char in [';', '"', '+', '-', '*', '/', '=', '(', ')', '{', '}'] ):
+    """ is_operator = splitter.current_char in ';"+-*/=(){}' #devuelve el caracter encontrado """
+    possible_operator = TokenType.keyword_exists(splitter.current_char)
+
+    if( possible_operator ):
+        #resulto que si habia operador, lo asigno para mas legibilidad
+        operator = possible_operator;
+
         #aqui no agrego while porque aun son operadores de un solo digito
         token.append(splitter.current_char)
+        tokens.append( buildToken(0,0, token, operator) )
 
 
 
@@ -80,7 +88,8 @@ while flag_stopLexer == False:
         while True:
             if( (splitter.peek_next().isdigit()) == False ):
                 # añadir el caracter actual antes de salir
-                token.append(splitter.current_char) 
+                token.append(splitter.current_char)
+                tokens.append( buildToken(0,0, token, TokenType.NUMBER) )
                 break #terminar el while si el siguiente caracter no es letra
             
             token.append(splitter.current_char)
@@ -152,3 +161,6 @@ while flag_stopLexer == False:
 for token in tokens:
     print()
     print(token)
+
+""" kw = TokenType.keyword_exists("+");
+print(kw) """
