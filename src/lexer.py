@@ -121,46 +121,15 @@ while flag_stopLexer == False:
         
 
 
-
     # TODO identificar posible mejor forma de manejar los EOF
     if( (splitter.isInBounds( splitter.current_position + 1 )) ):
         flag_stopLexer = True
         continue
 
-    
-    #append the token only if its not empty
-    """ if( len(token) > 0):
-        tokens.append(token) """
 
     splitter.next_char()
-
-
-"""     isKeyword = TokenType.keyword_exists(splitter.current_char)
-
-    if isKeyword:
-        keyword = isKeyword
-        tokens.append(
-            buildToken(keyword, currentChar, 0, 0)
-        )
-        continue
-    
-    # Si no es reservado, aplicamos logica basica para dinamicos
-    if currentChar.isdigit():
-        tokens.append(
-            buildToken(TokenType.NUMBER, currentChar, 0, 0)
-        )
-
-        continue
-
-    # Si nada de lo anterior pasa, por defecto, asumimos que es un identificador (ID)
-    tokens.append(
-        buildToken(TokenType.ID, currentChar, 0, 0)
-    ) """
 
 
 for token in tokens:
     print()
     print(token)
-
-""" kw = TokenType.keyword_exists("+");
-print(kw) """
