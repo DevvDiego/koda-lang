@@ -19,22 +19,35 @@ def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID
 
     return Token(type, joined_token_chars, line, col);
 
-# tomando de ejemplo la cadena "let x = 10 * 2 + 1"
-    
-#src =  "let x = 10*2+1;"\
-#"print(\"something\");"\
-#"print(x);"
-#"if((2*2)=4){" \
+# EJEMPLOS USANDO NUESTRO ALFABETO
+
+#src = """
+#let x = 10*2+1;
+#print(\"something\");
+#print(x);
+#if((2*2)=4){
+#    print("ejemplo largoooote")
+#}
+#"""
+
+#ejemplo super simple
+#src = "let x =10+2" #notese como llegan a faltar espacios
+
 
 #TODO averiguar porque al usar ; al final de un string "" no lo reconoce el lexer
-src = "print(x);" #esta cadena no identifica el ; al final
+#src = "print(x);" #esta cadena no identifica el ; al final
 
-
+#ejemplo mas simple 
+# (NOTA: use \ para "escapar" el caracter de comilla y que 
+# el interpete de python no lo use, sino nosotros)
 src = """
 let x = 10*2+1;
 print(\"something\");
 print(x);
 """
+
+#TODO averiguar como hacer que el lexer identifique cadenas como <"cadena con espacios"> porque las toma como diferentes
+#TODO averiguar como hacer que el lexer identifique strings y no los clasifique como IDs
 
 
 splitter = Splitter(src)

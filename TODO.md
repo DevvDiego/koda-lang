@@ -19,4 +19,8 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
 
+- [] Averiguar como hacer que el lexer identifique cadenas como <"cadena con espacios"> porque las toma como diferentes
+
+- [] Averiguar como hacer que el lexer identifique strings y no los clasifique como IDs
+
 - [] Empezar con la parte de la interfaz usando Flask? o Tkinter? Hay que verlo por el lado en el que todos logren entender y aportar en cierta medida.
