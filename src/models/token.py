@@ -21,7 +21,7 @@ class TokenType(Enum):
     DIV = "/"
 
     # Simbolos
-    DOUBLEQOUT = "\""    
+    DOUBLEQOUT = "\"" #FIX TYPO its quot not qout
     ASSIGN = "="
     LPAREN = "("
     RPAREN = ")"
@@ -32,6 +32,7 @@ class TokenType(Enum):
     # Literales e identificadores
     ID = "ID"         # nombres de variables
     NUMBER = "NUMBER" # numero
+    STRING = "STRING" # cadena de texto (como ID pero no una variable)
     EOF = "EOF"       # Fin de archivo (usado en el Parser)
 
 
