@@ -1,5 +1,6 @@
 from models.token import TokenType, Token
 from tools.splitter import Splitter
+from time import sleep
 
 
 def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID) -> Token :
@@ -42,12 +43,10 @@ def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID
 # el interpete de python no lo use, sino nosotros)
 src = """
 let x = 10*2+1;
-print(\"something\");
+print(\"something asd\");
 print(x);
 """
 
-#TODO averiguar como hacer que el lexer identifique cadenas como <"cadena con espacios"> porque las toma como diferentes
-#TODO averiguar como hacer que el lexer identifique strings y no los clasifique como IDs
 
 
 splitter = Splitter(src)
@@ -58,6 +57,7 @@ tokens = []
 flag_stopLexer = False;
 while flag_stopLexer == False:
     #deberia quiza agregar verificacion aqui o en el splitter para que el src no sea algo vacio???
+    #TODO revisar posibles optimizaciones porque tarda alrededor de 3s en ejecutar el lexer
 
     token = []
 
@@ -87,9 +87,35 @@ while flag_stopLexer == False:
         #resulto que si habia operador, lo asigno para mas legibilidad
         operator = possible_operator;
 
-        #aqui no agrego while porque aun son operadores de un solo digito
-        token.append(splitter.current_char)
-        tokens.append( buildToken(0,0, token, operator) )
+        #vuelvo a verificar, si es un tkn DOUBLEQUOT inicia otra logica que "aspira" para tomarlo como un string
+        if( operator == TokenType.DOUBLEQOUT ): #solo guardare el contenido del string sin DQ
+            splitter.next_char(); #salta el caracter DQ
+            while True:
+                
+                #Aqui pudiera haber otro raise Error si no queremos que haya algun otro " en medio
+                #si el caracter actual no es otro DQ
+                #if( (splitter.current_char == "\"") == False ):
+                    #pass
+
+                #Se encuentra el DQ de cierre 
+                if( splitter.current_char == "\"" ):
+                    #saltamos el DQ de cierre y no lo almacenamos
+                    #token.append(splitter.current_char)
+
+                    #se añade el token a los tokens como un STRING
+                    tokens.append( buildToken(0,0,token, TokenType.STRING) )
+
+                    break #termina el while
+                    #TODO dado caso que no encuentre el token de cierre que hariamos?
+                
+
+                token.append(splitter.current_char)
+                splitter.next_char();
+
+                sleep(0.5)
+        else:
+            token.append(splitter.current_char)
+            tokens.append( buildToken(0,0, token, operator) )
 
 
 
@@ -143,5 +169,4 @@ while flag_stopLexer == False:
 
 
 for token in tokens:
-    print()
-    print(token)
+    print(f"tipo: {token.type}, valor: {token.value} ")
