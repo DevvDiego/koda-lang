@@ -9,6 +9,12 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [x] Revisar alguna forma mas optima de identificar letras y caracteres especiales como * / - +, quiza usando regex?
 
+- [x] Averiguar como hacer que el lexer identifique strings y no los clasifique como IDs
+
+- [x] Averiguar como hacer que el lexer identifique cadenas como <"cadena con espacios"> porque las toma como diferentes
+
+- [] Potencial peligro de lentitud de compilacion, el programa tarda alrededor de 3 segundos en ejecutar el lexer, quiza es hora de optimizar?
+
 - [] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
 - [] Agregar todas las Palabras Reservadas dentro de la clase TokenType
@@ -19,8 +25,6 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
 
-- [] Averiguar como hacer que el lexer identifique cadenas como <"cadena con espacios"> porque las toma como diferentes
-
-- [] Averiguar como hacer que el lexer identifique strings y no los clasifique como IDs
+- [] Dado caso que no encuentre el token doublequot de cierre que hariamos?
 
 - [] Empezar con la parte de la interfaz usando Flask? o Tkinter? Hay que verlo por el lado en el que todos logren entender y aportar en cierta medida.
