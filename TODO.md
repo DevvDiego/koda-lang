@@ -3,6 +3,8 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [x] Generar un splitting personalizado, para ir agrupando caracter por caracter de forma automatica y poder revisar si es un keyword o no.
 
+- [] Averiguar como hacer que los otros tipos de identifiacacion de token funcionen correctamente
+
 - [] Generar la tokenizacion final despues de los pasos del splitter.
 
 - [] Revisar alguna forma mas optima de identificar letras y caracteres especiales como * / - +, quiza usando regex?
@@ -14,3 +16,5 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 - [] Verificar si el if deberia ser una cadena de if-elif para manejar tokens no reconocidos, o incluso usar un match.
 
 - [] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido?
+
+- [] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
