@@ -1,6 +1,5 @@
 from models.token import TokenType, Token
 from tools.splitter import Splitter
-from time import sleep
 
 
 def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID) -> Token :
@@ -112,7 +111,6 @@ while flag_stopLexer == False:
                 token.append(splitter.current_char)
                 splitter.next_char();
 
-                sleep(0.5)
         else:
             token.append(splitter.current_char)
             tokens.append( buildToken(0,0, token, operator) )

@@ -13,7 +13,7 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [x] Averiguar como hacer que el lexer identifique cadenas como <"cadena con espacios"> porque las toma como diferentes
 
-- [] Potencial peligro de lentitud de compilacion, el programa tarda alrededor de 3 segundos en ejecutar el lexer, quiza es hora de optimizar?
+- [x] Potencial peligro de lentitud de compilacion, el programa tarda alrededor de 3 segundos en ejecutar el lexer, quiza es hora de optimizar?
 
 - [] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
