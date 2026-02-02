@@ -1,5 +1,5 @@
-from models.token import TokenType, Token
-from tools.splitter import Splitter
+from src.models.token import TokenType, Token
+from src.tools.splitter import Splitter
 
 
 def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID) -> Token :
