@@ -7,5 +7,5 @@
 
 # Dentro de src/__init__.py
 from .lexer import Lexer
-#from .parser import Parser
+from .parser import Parser
 #from .abstract_syntax_tree import ProgramNode
