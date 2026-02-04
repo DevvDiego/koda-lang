@@ -13,6 +13,12 @@ class TokenType(Enum):
     FUNCTION = "function"
     PRINT = "print"
     
+    # Tipos de dato
+    INT = "int"
+    FLOAT = "float"
+    DOUBLE = "double"
+    STRING = "string"
+
     # Aritmetica
     PLUS = "+"
     MINUS = "-"
@@ -31,7 +37,7 @@ class TokenType(Enum):
     # Literales e identificadores
     ID = "ID"         # nombres de variables
     NUMBER = "NUMBER" # numero
-    STRING = "STRING" # cadena de texto (como ID pero no una variable)
+    STRING_LITERAL = "STRING_LITERAL" # cadena de texto (pero no en una variable)
     EOF = "EOF"       # Fin de archivo (usado en el Parser)
 
 
