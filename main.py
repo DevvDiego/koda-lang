@@ -1,4 +1,4 @@
-from src import Lexer
+from src import Lexer, Parser
 
 # Este archivo es el orquestrador, 
 # el punto de entrada para el compilador en general
@@ -22,5 +22,12 @@ except:
 
 tokens = Lexer(src=src)
 
-for token in tokens:
-    print(f"tipo: {token.type}, valor: {token.value} ")
+print("\n\nTokens obtenidos del Lexer")
+
+#esto solo mostrara lo que el lexer nos dio
+#for token in tokens:
+    #print(f"tipo: {token.type}, valor: {token.value} ")
+
+
+abstract_syntax_tree = Parser(tokens=tokens)
+print(abstract_syntax_tree)
