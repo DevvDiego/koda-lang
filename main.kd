@@ -1,2 +1,1 @@
-int x = 10*2+1;
-print(x);
+string x = "cadena literal";
