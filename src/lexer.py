@@ -106,7 +106,7 @@ def Lexer(src: str):
                         #token.append(splitter.current_char)
 
                         #se añade el token a los tokens como un STRING
-                        tokens.append( buildToken(0,0,token, TokenType.STRING) )
+                        tokens.append( buildToken(0,0,token, TokenType.STRING_LITERAL) )
 
                         break #termina el while
                         #TODO dado caso que no encuentre el token de cierre que hariamos?
