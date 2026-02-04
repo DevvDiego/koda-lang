@@ -12,7 +12,6 @@ class TokenType(Enum):
     WHILE = "while"
     FUNCTION = "function"
     PRINT = "print"
-    LET = "let"
     
     # Aritmetica
     PLUS = "+"

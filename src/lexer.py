@@ -22,7 +22,7 @@ def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID
 # EJEMPLOS USANDO NUESTRO ALFABETO
 
 #src = """
-#let x = 10*2+1;
+#int x = 10*2+1;
 #print(\"something\");
 #print(x);
 #if((2*2)=4){
@@ -31,7 +31,7 @@ def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID
 #"""
 
 #ejemplo super simple
-#src = "let x =10+2" #notese como llegan a faltar espacios
+#src = "int x =10+2" #notese como llegan a faltar espacios
 
 
 #TODO averiguar porque al usar ; al final de un string "" no lo reconoce el lexer
@@ -41,7 +41,7 @@ def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID
 # (NOTA: use \ para "escapar" el caracter de comilla y que 
 # el interpete de python no lo use, sino nosotros)
 #src = """
-#let x = 10*2+1;
+#int x = 10*2+1;
 #print(\"something asd\");
 #print(x);
 #"""
