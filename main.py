@@ -15,8 +15,8 @@ try:
 except:
     #cualquier error
     print("Ocurrio un error al tratar de leer el archivo fuente")
-    print("se usara el src: 'let x = 10;'\n\n")
-    src = "let x = 10;"
+    print("se usara el src: 'int x = 10;'\n\n")
+    src = "int x = 10;"
 
 #a partir de aqui en teoria ya deberiamos tener el archivo en la variable src
 
