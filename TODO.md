@@ -17,7 +17,9 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [x] Generar un archivo orquestrador que maneje logica de obtencion de archivos (y la interfaz probablemente) 
 
+- [] Cambiar la lista TODO a issues de github. Revisar conveniencia
 
+- [] Añadir identificacion del "." (Un punto) para poder manejar numeros de tipo flotante (¿Quiza deba ser en la misma identificacion de numeros haciendo algo similar como con la identificacion de doublequots?)
 
 - [] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
