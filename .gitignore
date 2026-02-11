@@ -4,6 +4,7 @@ docs/images/*
 .DS_Store
 Thumbs.db
 .vscode/
+.venv/
 .idea/
 *.suo
 *.ntvs*
