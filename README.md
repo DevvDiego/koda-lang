@@ -32,14 +32,15 @@ pip install -r requirements.txt
 
 Y listo, ya tienes las dependencias instaladas dentro de tu entorno virtual!
 
-**Nota extra:** Si VsCode no reconoce los paquetes importados probablemente sea que esta usando el interprete global y no el de tu virtual enviroment (venv).
-
-Prueba a ejecutar ``` Ctrl + shift + p -> Python: Select Interpreter``` y eliges el que tenga el "(.venv)" señalado.
+> [!TIP]
+> Si VsCode no reconoce los paquetes importados probablemente sea que esta usando el interprete global y no el de tu virtual enviroment (venv) prueba a ejecutar ``` Ctrl + shift + p -> Python: Select Interpreter``` y eliges el que tenga el "(.venv)" señalado.
 
 ---
 
 ### Ejecucion
-**Antes de empezar**, recuerda activar el **venv** para que python identifique las dependencias del entorno y no se confunda si es que ya las tienes instaladas.
+> [!WARNING]
+> **Antes de empezar**, recuerda activar el **venv** para que python identifique las dependencias del entorno y no se confunda si es que ya las tienes instaladas.
+
 
 Para ver la interfaz del proyecto, levanta el servidor de Flask utilizando el siguiente comando: 
 ```bash
