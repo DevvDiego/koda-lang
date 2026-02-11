@@ -1,4 +1,4 @@
-from src import Lexer
+""" from src import Lexer
 
 # Este archivo es el orquestrador, 
 # el punto de entrada para el compilador en general
@@ -23,4 +23,17 @@ except:
 tokens = Lexer(src=src)
 
 for token in tokens:
-    print(f"tipo: {token.type}, valor: {token.value} ")
+    print(f"tipo: {token.type}, valor: {token.value} ") """
+
+from flask import Flask, request, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# Permite hacer hot-reload y tener el servidor en modo debugging
+if __name__ == '__main__':
+    app.run(debug=True)
