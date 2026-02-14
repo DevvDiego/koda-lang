@@ -1,32 +1,25 @@
 from dataclasses import dataclass
+from typing import TypeVar, Generic
 
 @dataclass
-class Expression:
+class ProgramNode:
+    """El contenedor raíz (la "caja" que guarda todo el archivo)"""
+
+@dataclass
+class Expression: 
+    """Fragmentos de codigo que "valen algo" (numeros, sumas, variables)"""
     pass
 
 
 @dataclass
 class statement:
+    """Instrucciones que "hacen algo" (declarar, imprimir, repetir)."""
     pass
 
 
-@dataclass
-class LiteralNode:
-    def __init__(self, value):
-        self.value = value #nodo que literalmente almacena "string" o numeros
-
+# Definimos una Tipo generico
+T = TypeVar('T') # ignoren esta parte, es solo para type hints del IDE
 
 @dataclass
-class BinaryOpNode:
-    def __init__(self, left, operand, right):
-        self.left = left
-        self.operand = operand
-        self.right = right
-
-
-@dataclass
-class VarDeclarationNode:
-    def __init__(self, type, name, expression):
-        self.tipo = type
-        self.nombre = name
-        self.expression = expression # aqui deberian de ir una lista de nodos por ej.
+class LiteralNode(Generic[T]):
+    value: T
