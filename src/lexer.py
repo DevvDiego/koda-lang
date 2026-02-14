@@ -169,5 +169,12 @@ def Lexer(src: str):
 
         splitter.next_char()
 
-    #una vez el while termina, retornamos la list de tokens
+    #una vez el while termina, agregamos el ultimo token que seria EOF
+    #y retornamos la lista
+
+    #agregar token EOF (end of file)
+    tokens.append(
+        buildToken(0,0, ["EOF"], TokenType.EOF)
+    );
+
     return tokens
