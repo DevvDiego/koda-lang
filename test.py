@@ -1,4 +1,4 @@
-from src import Lexer
+from src import Lexer, Parser
 
 # este archivo es un orquestrador mas simple que toda la interfaz de flask
 # sirve para probar parte por parte todos las fases de compilacion
@@ -22,5 +22,7 @@ except:
 
 tokens = Lexer(src=src)
 
-for token in tokens:
-    print(f"tipo: {token.type}, valor: {token.value} ") 
+""" for token in tokens:
+    print(f"tipo: {token.type}, valor: {token.value} ")  """
+
+Parser(tokens)
