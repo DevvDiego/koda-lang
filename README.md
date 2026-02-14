@@ -46,3 +46,8 @@ Para ver la interfaz del proyecto, levanta el servidor de Flask utilizando el si
 ```bash
 python app.py
 ```
+
+Para trabajar de forma mas simple, recomiendo usar el archivo ```test.py``` y ejecutar la fase de compilacion que se quiere probar.
+```bash
+python test.py
+```
