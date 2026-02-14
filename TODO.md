@@ -57,6 +57,8 @@ Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
 
 - [] Deberiamos revisar temas como pratt parsing para asignarle un peso a cada tipo de nodo/operacion?
 
+- [] Agregar un la linea al metodo de eat siguiendo el tipo del token
+
 ---
 
 ### Interfaz web
