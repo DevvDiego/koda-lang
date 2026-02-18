@@ -1,5 +1,6 @@
 # TODO 
-Las tareas marcadas [x] han sido completadas, se mantienen aqui para tener un registro de las mismas. Para crear una nueva tarea utiliza "- []" para enlistarlos y marcarlos como no completados
+Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
+Las tareas completadas se mantienen aqui para tener un registro de las mismas. Para crear una nueva tarea utiliza "- []" para enlistarlos y marcarlos como no completados
 
 Estandares:
 - Mantener las tareas ya completadas hasta abajo de su categoria
@@ -27,13 +28,12 @@ Estandares:
 
 - [] Verificar si el if deberia ser una cadena de if-elif para manejar tokens no reconocidos, o incluso usar un match.
 
-- [] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido? De todas formas no es un error, solo algo a tomar en cuenta en los ejemplos
 
 - [] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
 
 - [] Dado caso que no encuentre el token doublequot de cierre que hariamos?
 
-Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
+- [x] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido? De todas formas no es un error, solo algo a tomar en cuenta en los ejemplos
 
 - [x] Generar un splitting personalizado, para ir agrupando caracter por caracter de forma automatica y poder revisar si es un keyword o no.
 
