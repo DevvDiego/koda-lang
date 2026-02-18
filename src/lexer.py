@@ -2,7 +2,7 @@ from src.models.token import TokenType, Token
 from src.tools.splitter import Splitter
 
 
-def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID) -> Token :
+def buildToken(row:int, col:int, value:list[str], type:TokenType = TokenType.ID) -> Token :
     """
     Builds a standarized token
     """
@@ -17,7 +17,7 @@ def buildToken(line:int, col:int, value:list[str], type:TokenType = TokenType.ID
         type = keyword
 
 
-    return Token(type, joined_token_chars, line, col);
+    return Token(type, joined_token_chars, row, col);
 
 # EJEMPLOS USANDO NUESTRO ALFABETO
 
@@ -73,7 +73,11 @@ def Lexer(src: str):
                     token.append(splitter.current_char)
 
                     #no tokentype pasado porque se espera que pueda ser algun keyword, sino sera ID
-                    tokens.append( buildToken(0,0,token) )
+                    tokens.append(buildToken(
+                        col=splitter.current_column,
+                        row=splitter.current_row,
+                        value=token 
+                    ))
 
                     break #terminar el while si el siguiente caracter no es letra
                 
@@ -106,7 +110,12 @@ def Lexer(src: str):
                         #token.append(splitter.current_char)
 
                         #se añade el token a los tokens como un STRING
-                        tokens.append( buildToken(0,0,token, TokenType.STRING_LITERAL) )
+                        tokens.append(buildToken(
+                            row=splitter.current_row,
+                            col=splitter.current_column,  
+                            value=token,
+                            type=TokenType.STRING_LITERAL
+                        ))
 
                         break #termina el while
                         #TODO dado caso que no encuentre el token de cierre que hariamos?
@@ -117,8 +126,13 @@ def Lexer(src: str):
 
             else:
                 token.append(splitter.current_char)
-                tokens.append( buildToken(0,0, token, operator) )
-
+                tokens.append(buildToken(
+                    row=splitter.current_row,
+                    col=splitter.current_column,  
+                    value=token,
+                    type=operator
+                ))
+                
 
 
 
@@ -129,7 +143,12 @@ def Lexer(src: str):
                 if( (splitter.peek_next().isdigit()) == False ):
                     # añadir el caracter actual antes de salir
                     token.append(splitter.current_char)
-                    tokens.append( buildToken(0,0, token, TokenType.NUMBER) )
+                    tokens.append(buildToken(
+                        row=splitter.current_row,
+                        col=splitter.current_column,  
+                        value=token,
+                        type=TokenType.NUMBER
+                    ))
                     break #terminar el while si el siguiente caracter no es letra
                 
                 token.append(splitter.current_char)
@@ -173,8 +192,11 @@ def Lexer(src: str):
     #y retornamos la lista
 
     #agregar token EOF (end of file)
-    tokens.append(
-        buildToken(0,0, ["EOF"], TokenType.EOF)
-    );
+    tokens.append(buildToken(
+        row=splitter.current_row + 1,
+        col=splitter.current_column,  
+        value=["EOF"],
+        type=TokenType.EOF
+    ))
 
     return tokens
