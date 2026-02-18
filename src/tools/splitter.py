@@ -8,6 +8,8 @@ class Splitter():
     src: list[str]
     src_length: int
     current_position: int
+    current_column: int
+    current_row: int
     current_char: str
 
     def __init__(self, src:str) -> None:
@@ -17,6 +19,8 @@ class Splitter():
         self.src = [char for char in src] #split every character
         self.src_length = len(self.src)
         self.current_position = 0
+        self.current_column = 1
+        self.current_row = 1
         self.current_char = src[0]
 
     
@@ -27,6 +31,12 @@ class Splitter():
         if( self.isInBounds( self.current_position + 1 ) ):
             print("Imposible avanzar, out of bounds")
             return
+        
+        if(self.current_char == "\n"): #new line
+            self.increaseRow()
+            self.current_column = 0 # reset column
+
+        self.increaseColumn()
 
         self.current_position = self.current_position + 1
         self.current_char = self.src[self.current_position]
@@ -52,4 +62,9 @@ class Splitter():
             return True
 
         return False
-        
+
+    def increaseColumn(self):
+        self.current_column = self.current_column + 1
+    
+    def increaseRow(self):
+        self.current_row = self.current_row + 1
