@@ -34,9 +34,6 @@ def buildToken(row:int, col:int, value:list[str], type:TokenType = TokenType.ID)
 #src = "int x =10+2" #notese como llegan a faltar espacios
 
 
-#TODO averiguar porque al usar ; al final de un string "" no lo reconoce el lexer
-#src = "print(x);" #esta cadena no identifica el ; al final
-
 #ejemplo mas simple 
 # (NOTA: use \ para "escapar" el caracter de comilla y que 
 # el interpete de python no lo use, sino nosotros)
@@ -63,39 +60,54 @@ def Lexer(src: str):
         #TODO revisar posibles optimizaciones porque tarda alrededor de 3s en ejecutar el lexer
 
         token = []
+        current_char = splitter.current_char
 
-        #si es una letra
-        if(splitter.current_char.isalpha()):
-            #averiguar si el siguiente caracter es caracter y si si, seguir agregando como token
-            while True:
-                if( (splitter.peek_next().isalpha()) == False ):
-                    # añadir el caracter actual antes de salir
+        match current_char:
+
+            #si es una letra
+            case char if char.isalpha():
+                #averiguar si el siguiente caracter es caracter y si si, seguir agregando como token
+                while True:
+                    if( (splitter.peek_next().isalpha()) == False ):
+                        # añadir el caracter actual antes de salir
+                        token.append(splitter.current_char)
+
+                        #no tokentype pasado porque se espera que pueda ser algun keyword, sino sera ID
+                        tokens.append(buildToken(
+                            col=splitter.current_column,
+                            row=splitter.current_row,
+                            value=token 
+                        ))
+
+                        break #terminar el while si el siguiente caracter no es letra
+                    
                     token.append(splitter.current_char)
+                    splitter.next_char();
+            
+            #si es un numero
+            case char if char.isdigit():
+                #averiguar si el siguiente caracter es digito y si si, seguir agregando como token
+                while True:
+                    if not splitter.peek_next().isdigit():
+                        # añadir el caracter actual antes de salir
+                        token.append(current_char)
+                        tokens.append(buildToken(
+                            row=splitter.current_row,
+                            col=splitter.current_column,  
+                            value=token,
+                            type=TokenType.NUMBER
+                        ))
+                        break #terminar el while si el siguiente caracter no es letra
+                    
+                    token.append(splitter.current_char)
+                    splitter.next_char();
+                    current_char = splitter.current_char
 
-                    #no tokentype pasado porque se espera que pueda ser algun keyword, sino sera ID
-                    tokens.append(buildToken(
-                        col=splitter.current_column,
-                        row=splitter.current_row,
-                        value=token 
-                    ))
+            case char if char.isspace():
+                #si es un espacio
+                pass
 
-                    break #terminar el while si el siguiente caracter no es letra
-                
-                token.append(splitter.current_char)
-                splitter.next_char();
-
-
-
-
-        #si es una operador
-        possible_operator = TokenType.keyword_exists(splitter.current_char)
-
-        if( possible_operator ):
-            #resulto que si habia operador, lo asigno para mas legibilidad
-            operator = possible_operator;
-
-            #vuelvo a verificar, si es un tkn DOUBLEQUOT inicia otra logica que "aspira" para tomarlo como un string
-            if( operator == TokenType.DOUBLEQOUT ): #solo guardare el contenido del string sin DQ
+            case '"': # Comilla doble
                 splitter.next_char(); #salta el caracter DQ
                 while True:
                     
@@ -124,47 +136,48 @@ def Lexer(src: str):
                     token.append(splitter.current_char)
                     splitter.next_char();
 
-            else:
-                token.append(splitter.current_char)
-                tokens.append(buildToken(
-                    row=splitter.current_row,
-                    col=splitter.current_column,  
-                    value=token,
-                    type=operator
-                ))
-                
+            case _: # Operadores o cualquier otro caracter
+                #si es una operador
+                possible_operator = TokenType.keyword_exists(current_char)
 
-
-
-        #si es un numero
-        if(splitter.current_char.isdigit()):
-            #averiguar si el siguiente caracter es digito y si si, seguir agregando como token
-            while True:
-                if( (splitter.peek_next().isdigit()) == False ):
-                    # añadir el caracter actual antes de salir
+                if( possible_operator ):
+                    #resulto que si era operador
                     token.append(splitter.current_char)
                     tokens.append(buildToken(
                         row=splitter.current_row,
                         col=splitter.current_column,  
                         value=token,
-                        type=TokenType.NUMBER
+                        type=possible_operator
                     ))
-                    break #terminar el while si el siguiente caracter no es letra
+                else: # Caracteres no reconocidos
+                    print(f"""
+                        [LEXER] Caracter no reconocido: 
+                        value:{current_char}, 
+                        pos:{splitter.current_position}
+                    """)
                 
-                token.append(splitter.current_char)
-                splitter.next_char();
-
-
-
-
-        #si es un espacio
-        if(splitter.current_char.isspace()):
-            pass
-            # tomar en cuenta los espacios? yo creo no ya que tenemos el semicolon (;)
-            # token.append(splitter.current_char)
-            # igual aqui los espacios son solo un caracter
-            #print(splitter.current_char, splitter.current_position)
         
+
+
+        if splitter.isInBounds( splitter.current_position + 1 ):
+            flag_stopLexer = True
+            continue
+
+        splitter.next_char()
+
+
+
+
+    #agregar token EOF (end of file)
+    tokens.append(buildToken(
+        row=splitter.current_row + 1,
+        col=splitter.current_column,  
+        value=["EOF"],
+        type=TokenType.EOF
+    ))
+
+    return tokens
+
         
         
         #TODO revisar si deberia hacer if y elif en lugar de simples ifs para poder manejar
@@ -181,22 +194,9 @@ def Lexer(src: str):
 
 
         # TODO identificar posible mejor forma de manejar los EOF
-        if( (splitter.isInBounds( splitter.current_position + 1 )) ):
+"""         if( (splitter.isInBounds( splitter.current_position + 1 )) ):
             flag_stopLexer = True
-            continue
+            continue """
 
 
-        splitter.next_char()
 
-    #una vez el while termina, agregamos el ultimo token que seria EOF
-    #y retornamos la lista
-
-    #agregar token EOF (end of file)
-    tokens.append(buildToken(
-        row=splitter.current_row + 1,
-        col=splitter.current_column,  
-        value=["EOF"],
-        type=TokenType.EOF
-    ))
-
-    return tokens
