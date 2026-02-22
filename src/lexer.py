@@ -54,8 +54,7 @@ tokens = []
 def Lexer(src: str):
     splitter = Splitter(src)
 
-    flag_stopLexer = False;
-    while flag_stopLexer == False:
+    while not splitter.isOutOfBounds(splitter.current_position + 1):
         #deberia quiza agregar verificacion aqui o en el splitter para que el src no sea algo vacio???
         #TODO revisar posibles optimizaciones porque tarda alrededor de 3s en ejecutar el lexer
 
@@ -158,12 +157,6 @@ def Lexer(src: str):
                         f"row: {splitter.current_row} col: {splitter.current_column}\n"
                     )
                 
-        
-
-
-        if splitter.isInBounds( splitter.current_position + 1 ):
-            flag_stopLexer = True
-            continue
 
         splitter.next_char()
 
