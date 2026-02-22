@@ -56,7 +56,6 @@ def Lexer(src: str):
 
     while not splitter.isOutOfBounds(splitter.current_position + 1):
         #deberia quiza agregar verificacion aqui o en el splitter para que el src no sea algo vacio???
-        #TODO revisar posibles optimizaciones porque tarda alrededor de 3s en ejecutar el lexer
 
         token = []
         current_char = splitter.current_char
@@ -172,26 +171,3 @@ def Lexer(src: str):
     ))
 
     return tokens
-
-        
-        
-        #TODO revisar si deberia hacer if y elif en lugar de simples ifs para poder manejar
-        #el caso donde un caracer sea no reconocido
-        
-        #si es un caracter no reconocido
-        #if(flag_isLetter or flag_isNum or flag_isOperator or flag_isSpace):
-            #hacemos saber que tenemos un caracter no reconocido
-        #    print(f"""
-        #          [LEXER] Caracter no reconocido: 
-        #          value:{splitter.current_char}, pos:{splitter.current_position}"""
-        #        )
-            
-
-
-        # TODO identificar posible mejor forma de manejar los EOF
-"""         if( (splitter.isInBounds( splitter.current_position + 1 )) ):
-            flag_stopLexer = True
-            continue """
-
-
-
