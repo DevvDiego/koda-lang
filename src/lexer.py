@@ -150,11 +150,13 @@ def Lexer(src: str):
                         type=possible_operator
                     ))
                 else: # Caracteres no reconocidos
-                    print(f"""
-                        [LEXER] Caracter no reconocido: 
-                        value:{current_char}, 
-                        pos:{splitter.current_position}
-                    """)
+                    #TODO Asegurarse que el parsing se detenga en estos casos
+                    # quiza usar directamente un raise sea lo correcto?
+                    print(
+                        "[LEXER] Caracter no reconocido: " \
+                        f"value: {current_char}, " \
+                        f"row: {splitter.current_row} col: {splitter.current_column}\n"
+                    )
                 
         
 

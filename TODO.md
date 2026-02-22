@@ -30,6 +30,8 @@ Estandares:
 
 - [] Dado caso que no encuentre el token doublequot de cierre que hariamos?
 
+- [] Asegurarse que el parsing se detenga en casos especificos, quiza usando raise?
+
 - [x] Verificar si el if deberia ser una cadena de if-elif para manejar tokens no reconocidos, o incluso usar un match.
 
 - [x] Averiguar porque al usar ; al final de un string """ """ no lo reconoce el lexer, ¿quiza hace un trim python naturalmente de los dos lados del string extendido? De todas formas no es un error, solo algo a tomar en cuenta en los ejemplos
