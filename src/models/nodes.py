@@ -1,84 +1,130 @@
+#Importacion de future y typing 
+    #Future para evitar errores de referencia hacia adelante al usar tipos en anotaciones, posponiendo su evaluación.
 from __future__ import annotations
-from dataclasses import dataclass, field    
-from typing import Optional, TypeVar, Generic, List
+    #typing para usar tipos opcionales y listas en las anotaciones de tipo, mejorando la claridad del código y facilitando el análisis estático.
+from typing import Optional, List
 
-# base para los nodos del AST (Abstract Syntax Tree)
-@dataclass
+#Clases base para el AST (Abstract Syntax Tree)
 class Node:
-    line: int = 0
-    column: int = 0
-
-@dataclass
-class Expression(Node): 
-    """Fragmentos de codigo que "valen algo" (numeros, sumas, variables)"""
-    pass
+    def __init__(self, line: int = 0, column: int = 0):
+        self.line = line
+        self.column = column
 
 
-@dataclass
+class Expression(Node):
+    """Fragmentos de codigo que 'valen algo'"""
+    def __init__(self, line: int = 0, column: int = 0):
+        super().__init__(line, column)
+
+
 class Statement(Node):
-    """Instrucciones que "hacen algo" (declarar, imprimir, repetir)."""
-    pass
+    """Instrucciones que 'hacen algo'"""
+    def __init__(self, line: int = 0, column: int = 0):
+        super().__init__(line, column)
 
-# Este archivo define los nodos del AST (Abstract Syntax Tree) que el parser va a construir.
-@dataclass
+
+#Programa completo, raiz del AST (donde se guardan todas las sentencias)
+
 class ProgramNode(Node):
-    sentences: list[Statement] = field(default_factory=list)
+    def __init__(self, line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.sentences: List[Statement] = []
 
     def add_node(self, node: Statement):
         self.sentences.append(node)
-    
-# Definimos una Tipo generico
-T = TypeVar('T') # ignoren esta parte, es solo para type hints del IDE
 
-@dataclass
-class LiteralNode(Expression,Generic[T]):
-    """Almacena valores literales, como cadenas o numeros"""
-    value: T
 
-@dataclass    
-class Numberliteral(LiteralNode[int,float]):
-    pass  
+# Tipos de nodos para expresiones y sentencias
+    #Nodos literales para valores constantes (números, cadenas, etc.) 
+class LiteralNode(Expression):
+    def __init__(self, value, line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.value = value
 
-@dataclass
-class StringLiteral(LiteralNode[str]):
-    pass
+    #nodos numericos y de cadenas
+class NumberLiteral(LiteralNode):
+    def __init__(self, value, line: int = 0, column: int = 0):
+        super().__init__(value, line, column)
 
-@dataclass
-class identifier(Expression):
-    name: str = ""
+    #nodos de cadenas tipo string, con comillas dobles o simples
+class StringLiteral(LiteralNode):
+    def __init__(self, value: str, line: int = 0, column: int = 0):
+        super().__init__(value, line, column)
 
-@dataclass
+
+#clase para identificadores (variables, funciones, etc.) que se usan en expresiones y sentencias# 
+
+class Identifier(Expression):
+    def __init__(self, name: str, line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.name = name
+
+
+#Nodos para operadores unarios y binarios para expresiones aritméticas, lógicas, etc.
+
 class UnaryOp(Expression):
-    op: object = None          # TokenType (PLUS/MULT/...)
-    left: Expression = None
-    right: Expression = None
+    def __init__(self, op, expr: Expression, line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.op = op
+        self.expr = expr
 
-@dataclass
+
+class BinaryOp(Expression):
+    def __init__(self, op, left: Expression, right: Expression, line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.op = op
+        self.left = left
+        self.right = right
+
+
+# Nodos para sentencias de declaración de variables, asignación, impresión, bloques, condicionales y bucles
+
 class VarDecl(Statement):
-    var_type: object = None    # TokenType.INT/FLOAT/...
-    name: str = ""
-    init: Optional[Expression] = None
+    def __init__(self, var_type, name: str, init: Optional[Expression] = None,
+                 line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.var_type = var_type
+        self.name = name
+        self.init = init
 
-@dataclass
+
 class Assign(Statement):
-    name: str = ""
-    expr: Expression = None
+    def __init__(self, name: str, expr: Expression,
+                 line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.name = name
+        self.expr = expr
 
-@dataclass
+
 class PrintStmt(Statement):
-    expr: Expression = None
+    def __init__(self, expr: Expression,
+                 line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.expr = expr
 
-@dataclass
+
 class BlockStmt(Statement):
-    statements: List[Statement] = field(default_factory=list)
+    def __init__(self, statements: Optional[List[Statement]] = None,
+                 line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.statements = statements if statements is not None else []
 
-@dataclass
+
 class IfStmt(Statement):
-    condition: Expression = None
-    then_branch: Statement = None
-    else_branch: Optional[Statement] = None
+    def __init__(self, condition: Expression,
+                 then_branch: Statement,
+                 else_branch: Optional[Statement] = None,
+                 line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.condition = condition
+        self.then_branch = then_branch
+        self.else_branch = else_branch
 
-@dataclass
+
 class WhileStmt(Statement):
-    condition: Expression = None
-    body: Statement = None
+    def __init__(self, condition: Expression,
+                 body: Statement,
+                 line: int = 0, column: int = 0):
+        super().__init__(line, column)
+        self.condition = condition
+        self.body = body
