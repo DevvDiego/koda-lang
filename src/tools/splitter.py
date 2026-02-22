@@ -28,7 +28,7 @@ class Splitter():
         """
         Mueve el puntero al siguiente caracter de src
         """
-        if( self.isInBounds( self.current_position + 1 ) ):
+        if( self.isOutOfBounds( self.current_position + 1 ) ):
             print("Imposible avanzar, out of bounds")
             return
         
@@ -45,7 +45,7 @@ class Splitter():
         """
         Revisa el valor del siguiente caracter en src sin mover el puntero
         """
-        if( self.isInBounds(self.current_position+1) ):
+        if( self.isOutOfBounds(self.current_position+1) ):
             print("Imposible avanzar, out of bounds")
             return ""
         
@@ -54,7 +54,7 @@ class Splitter():
     def return_current_char(self):
         return self.current_char
     
-    def isInBounds(self, idx:int):
+    def isOutOfBounds(self, idx:int):
         if idx < 0:
             return True
 
