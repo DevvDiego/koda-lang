@@ -47,11 +47,12 @@ def buildToken(row:int, col:int, value:list[str], type:TokenType = TokenType.ID)
 
 
 
-tokens = []
+
 
 
 
 def Lexer(src: str):
+    tokens = []
     splitter = Splitter(src)
 
     while not splitter.isOutOfBounds(splitter.current_position + 1):
