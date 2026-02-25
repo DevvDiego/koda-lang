@@ -9,13 +9,31 @@
     </style>
 </head>
 <body>
-    
+
     <h1>Este es el index del compilador Koda</h1>
 
-    <form action="/handle_data" method="POST">
-        <input type="text" name="user_input_name">
-        <input type="submit" value="Submit">
+    <form action="/handle_data" method="POST" enctype="multipart/form-data">
+        <input type="file" name="codeFile" id="codeFile" accept=".kd">
+        <button type="submit">
+            Enviar
+        </button>
     </form>
+
+
+    <!--
+        TODO:
+        Que mas podriamos hacer con los Jinja templates? 
+    -->
+
+    <!-- Jinja template syntax -->
+    
+    {% if result %}
+        <h1>Result:</h1>
+        <code>
+            {{ result }}
+        </code>
+    {% endif %}
+    
 
 </body>
 </html>
