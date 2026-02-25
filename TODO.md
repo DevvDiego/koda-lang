@@ -64,8 +64,10 @@ Estandares:
 
 ### Interfaz web
 
-- [] Agregar la pagina base para obtener un archivo en flask y poder alimentarlo al lexer para que nos de una salida en consola
-
-- [] Averiguar una forma de que podamos responder nuevamente la salida de el lexer hacia la pagina
-
 - [] Agregar estilos basicos a la pagina (NADA COMPLEJO, y con fondo color #262626 por favor.)
+
+- [] Averiguar que mas podriamos hacer con los templates de Jinja, quiza hacer una interfaz bonita?
+
+- [x] Averiguar una forma de que podamos responder nuevamente la salida de el lexer hacia la pagina
+
+- [x] Agregar la pagina base para obtener un archivo en flask y poder alimentarlo al lexer para que nos de una salida en ~~consola~~ la interfaz web
