@@ -19,15 +19,15 @@ def index():
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
     if request.method != "POST":
-        return render_template("index.html", result="Expected POST request.")
+        return render_template("index.html", error="Expected POST request.")
 
     if "codeFile" not in request.files: #el name del input debe ser codeFile
-        return render_template("index.html", result="No file part found in request. (Did you uploaded a file?)")
+        return render_template("index.html", error="No file part found in request. (Did you uploaded a file?)")
 
     file = request.files["codeFile"]
 
     if file.filename == "": #Al no tener nombre sospechamos que es un envio vacio
-        return render_template("index.html", result="No file selected. (Or no name found)")
+        return render_template("index.html", error="No file selected. (Or no name found)")
 
     #(operaciones no seguras)
     try:
@@ -42,7 +42,7 @@ def handle_data():
     
     except Exception as e:
     
-        return render_template("index.html", result=f"Error processing file: {e}")
+        return render_template("index.html", error=f"Error processing file: {e}")
     
 
 

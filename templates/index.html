@@ -26,12 +26,24 @@
     -->
 
     <!-- Jinja template syntax -->
+
+    {% if error %}
+        <h2>Error</h2>
+        <p>
+            {{ error }}
+        </p>
+    {% endif %}
     
     {% if result %}
         <h1>Result:</h1>
-        <code>
-            {{ result }}
-        </code>
+        <p>
+            <code>
+                {% for token in result %}
+                    {{ token }}
+                    <br>
+                {% endfor %}
+            </code>
+        </p>
     {% endif %}
     
 
