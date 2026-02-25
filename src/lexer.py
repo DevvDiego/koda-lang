@@ -166,7 +166,7 @@ def Lexer(src: str):
     #agregar token EOF (end of file)
     tokens.append(buildToken(
         row=splitter.current_row + 1,
-        col=splitter.current_column,  
+        col=0,  
         value=["EOF"],
         type=TokenType.EOF
     ))
