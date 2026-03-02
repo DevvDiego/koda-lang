@@ -12,6 +12,38 @@ class Node:
         self.line = line
         self.column = column
 
+    def __repr__(self, indent: int = 0) -> str:
+        """Genera une representacion del nodo con identaciones y nuevas lineas para mejor lectura."""
+        name = self.__class__.__name__
+        ignored = {'line', 'column'}
+        
+        # Obtenemos los atributos y generamos su representación
+        items = []
+        for k, v in self.__dict__.items():
+            if k in ignored:
+                continue
+            
+            # Si el valor es otro Nodo, llamamos su repr con más indentación
+            if isinstance(v, Node):
+                val_str = v.__repr__(indent + 2)
+            # Si es una lista (como en BlockStmt), procesamos cada elemento
+            elif isinstance(v, list):
+                list_items = []
+                for item in v:
+                    list_items.append(item.__repr__(indent + 4) if isinstance(item, Node) else repr(item))
+                val_str = "[\n" + ",\n".join(list_items) + "\n" + " " * (indent + 2) + "]"
+            else:
+                val_str = repr(v)
+                
+            items.append(f"{' ' * (indent + 2)}{k}={val_str}")
+
+        if not items:
+            return f"{name}()"
+            
+        res = f"{name}(\n" + ",\n".join(items) + "\n" + " " * indent + ")"
+        return res
+
+
 
 class Expression(Node):
     """Fragmentos de codigo que 'valen algo'"""
