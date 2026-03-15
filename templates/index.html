@@ -1,48 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koda compiler</title>
-    <style>
-        body{background-color: #262626; color: white;}
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Koda compiler</title>
+  <style>
+    body{background:#262626;color:#fff;font-family:system-ui;margin:0}
+
+    header{
+      padding:16px;
+      border-bottom:1px solid #3a3a3a;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap
+    }
+
+    main{
+      display:grid;
+      grid-template-rows: 1fr 260px; /* editor / salida */
+      gap:12px;
+      padding:12px;
+      height:calc(100vh - 70px); /* ajusta si tu header cambia de alto */
+      box-sizing:border-box;
+    }
+
+    textarea{
+      width:100%;
+      height:100%;
+      background:#1e1e1e;
+      color:#fff;
+      border:1px solid #3a3a3a;
+      border-radius:10px;
+      padding:12px;
+      font-family:ui-monospace, monospace;
+      font-size:14px;
+      resize:none; /* para que no rompa el layout del grid */
+      box-sizing:border-box;
+    }
+
+    .panel{
+      background:#1e1e1e;
+      border:1px solid #3a3a3a;
+      border-radius:10px;
+      padding:12px;
+      height:100%;
+      overflow:auto;
+      box-sizing:border-box;
+    }
+
+    input, select, button{background:#333;color:#fff;border:1px solid #555;border-radius:8px;padding:8px}
+    button{cursor:pointer}
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .muted{color:#aaa;font-size:12px}
+    .error{color:#ffb4b4}
+    .ok{color:#b6ffb4}
+    code{white-space:pre-wrap}
+    .spacer{width:12px}
+    .tag{font-size:12px;color:#aaa;border:1px solid #444;padding:4px 8px;border-radius:999px}
+  </style>
 </head>
 <body>
 
-    <h1>Este es el index del compilador Koda</h1>
+<header>
+  <strong>Koda Compiler</strong>
+  <span class="tag" id="currentFileTag">Sin archivo</span>
 
-    <form action="/handle_data" method="POST" enctype="multipart/form-data">
-        <input type="file" name="codeFile" id="codeFile" accept=".kd">
-        <button type="submit">
-            Enviar
-        </button>
-    </form>
+  <div class="spacer"></div>
 
+  <button type="button" id="btnNew">Nuevo</button>
 
-    <!--
-        TODO:
-        Que mas podriamos hacer con los Jinja templates? 
-    -->
+  <input type="file" id="filePicker" accept=".kd" style="display:none">
+  <button type="button" id="btnOpen">Abrir (.kd)</button>
 
-    <!-- Jinja template syntax -->
+  <button type="button" id="btnSave">Guardar</button>
+  <button type="button" id="btnSaveAs">Guardar como</button>
 
-    {% if error %}
-        <h2>Error</h2>
-        <p>
-            {{ error }}
-        </p>
-    {% endif %}
-    
+  <div class="spacer"></div>
+
+  <form class="row" action="/compile" method="POST" id="compileForm">
+    <input type="hidden" name="filename" id="compileFilename" value="">
+    <input type="hidden" name="content" id="compileContent" value="">
+    <button type="submit">Compilar</button>
+  </form>
+</header>
+
+<main>
+  <!-- Editor arriba -->
+  <section>
+    {% if message %}<p class="ok">{{ message }}</p>{% endif %}
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+    <textarea id="editor" placeholder="Escribe tu código Koda aquí...">{{ content or '' }}</textarea>
+  </section>
+
+  <!-- Salida abajo -->
+  <aside class="panel">
+    <h3>Salida</h3>
     {% if result %}
-        <h1>Result:</h1>
-        <pre class="white-space: pre;">
-            <code>
-{{ result }}
-            </code>
-        </pre>
+      <code>
+{% for line in result %}
+{{ line }}
+{% endfor %}
+      </code>
+    {% else %}
+      <p class="muted"></p>
     {% endif %}
-    
+  </aside>
+</main>
+
+<script>
+  const editor = document.getElementById("editor");
+  const filePicker = document.getElementById("filePicker");
+  const currentFileTag = document.getElementById("currentFileTag");
+
+  const btnNew = document.getElementById("btnNew");
+  const btnOpen = document.getElementById("btnOpen");
+  const btnSave = document.getElementById("btnSave");
+  const btnSaveAs = document.getElementById("btnSaveAs");
+
+  const compileForm = document.getElementById("compileForm");
+  const compileFilename = document.getElementById("compileFilename");
+  const compileContent = document.getElementById("compileContent");
+
+  let currentFilename = "";
+  let isDirty = false;
+
+  function setCurrentFile(name) {
+    currentFilename = name || "";
+    currentFileTag.textContent = currentFilename ? `Archivo: ${currentFilename}` : "Sin archivo";
+  }
+
+  function markDirty(dirty) {
+    isDirty = dirty;
+    if (!currentFilename) return;
+    currentFileTag.textContent = dirty ? `Archivo: ${currentFilename} *` : `Archivo: ${currentFilename}`;
+  }
+
+  editor.addEventListener("input", () => markDirty(true));
+
+  function downloadTextFile(filename, text) {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 0);
+  }
+
+  btnNew.addEventListener("click", () => {
+    if (isDirty) {
+      const ok = confirm("Tienes cambios sin guardar. ¿Crear nuevo de todos modos?");
+      if (!ok) return;
+    }
+    editor.value = "";
+    setCurrentFile("");
+    markDirty(false);
+  });
+
+  btnOpen.addEventListener("click", () => filePicker.click());
+
+  filePicker.addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    if (isDirty) {
+      const ok = confirm("Tienes cambios sin guardar. ¿Abrir de todos modos?");
+      if (!ok) {
+        filePicker.value = "";
+        return;
+      }
+    }
+
+    const text = await file.text();
+    editor.value = text;
+
+    setCurrentFile(file.name.endsWith(".kd") ? file.name : (file.name + ".kd"));
+    markDirty(false);
+    filePicker.value = "";
+  });
+
+  btnSave.addEventListener("click", () => {
+    let name = currentFilename;
+    if (!name) {
+      name = prompt("Nombre del archivo (.kd):", "main.kd") || "";
+      name = name.trim();
+      if (!name) return;
+    }
+    if (!name.endsWith(".kd")) name += ".kd";
+
+    downloadTextFile(name, editor.value);
+    setCurrentFile(name);
+    markDirty(false);
+  });
+
+  btnSaveAs.addEventListener("click", () => {
+    let name = prompt("Guardar como (.kd):", currentFilename || "main.kd") || "";
+    name = name.trim();
+    if (!name) return;
+    if (!name.endsWith(".kd")) name += ".kd";
+
+    downloadTextFile(name, editor.value);
+    setCurrentFile(name);
+    markDirty(false);
+  });
+
+  compileForm.addEventListener("submit", () => {
+    compileFilename.value = currentFilename;
+    compileContent.value = editor.value;
+  });
+
+  setCurrentFile("");
+  markDirty(false);
+</script>
 
 </body>
 </html>
