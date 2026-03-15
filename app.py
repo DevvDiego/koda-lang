@@ -1,51 +1,56 @@
 from flask import Flask, request, render_template
 from src import Lexer, Parser
 
-def compile(src: str):
-    tokensFromSrc = Lexer(src=src)
-    parser = Parser(tokens=tokensFromSrc)
-    ast = parser.parse()
-    return ast
-
-
-
-
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route('/handle_data', methods=['POST'])
-def handle_data():
-    if request.method != "POST":
-        return render_template("index.html", error="Expected POST request.")
+@app.route("/compile", methods=["POST"])
+def compile_code():
 
-    if "codeFile" not in request.files: #el name del input debe ser codeFile
-        return render_template("index.html", error="No file part found in request. (Did you uploaded a file?)")
-
-    file = request.files["codeFile"]
-
-    if file.filename == "": #Al no tener nombre sospechamos que es un envio vacio
-        return render_template("index.html", error="No file selected. (Or no name found)")
-
-    #(operaciones no seguras)
     try:
-        # Leer archivo a memoria 
-        file_content = file.read()
-        
-        # decodificar como texto
-        text_data = file_content.decode('utf-8', errors='replace')
-        codeGen = compile(src=text_data)
+        # código enviado desde el editor
+        src = request.form.get("content", "")
 
-        return render_template("index.html", result=codeGen)
-    
+        if not src.strip():
+            return render_template(
+                "index.html",
+                error="No se envió código para compilar."
+            )
+
+        # ----- Fase 1: Lexer -----
+        tokens = Lexer(src)
+
+        # ----- Fase 2: Parser -----
+        parser = Parser(tokens)
+        ast = parser.parse()
+
+        # salida que se mostrará en el panel derecho
+        result = []
+
+        result.append("TOKENS:")
+        for t in tokens:
+            result.append(str(t))
+
+        result.append("\nAST:")
+        result.append(str(ast))
+
+        return render_template(
+            "index.html",
+            result=result,
+            content=src
+        )
+
     except Exception as e:
-    
-        return render_template("index.html", error=f"Error processing file: {e}")
-    
+
+        return render_template(
+            "index.html",
+            error=str(e),
+            content=src
+        )
 
 
-# Permite hacer hot-reload y tener el servidor en modo debugging
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
