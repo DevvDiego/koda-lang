@@ -16,12 +16,12 @@ class SemanticAnalyzer(Visitor):
     def __init__(self):
         self.table = SymbolTable()
 
-    def visit_ProgramNode(self, node):
+    def visit_ProgramNode(self, node: ProgramNode):
         for sentence in node.sentences:
             sentence.accept(self)
         print("--- Analisis semantico finalizado con exito ---")
 
-    def visit_VarDecl(self, node):
+    def visit_VarDecl(self, node: VarDecl):
         # 1. Verificar si la variable ya fue declarada
         if self.table.exists(node.name):
             raise Exception(f"Error Semantico: La variable '{node.name}' ya existe.")
@@ -37,7 +37,7 @@ class SemanticAnalyzer(Visitor):
         # 3. Guardar en la tabla de símbolos
         self.table.define(node.name, node.var_type)
 
-    def visit_Assign(self, node):
+    def visit_Assign(self, node: Assign):
         # 1. Verificar si la variable existe
         var_type = self.table.lookup(node.name)
         if not var_type:
@@ -48,16 +48,16 @@ class SemanticAnalyzer(Visitor):
         if new_value_type != var_type:
             raise Exception(f"Error: No puedes asignar {new_value_type} a la variable '{node.name}' que es {var_type}")
 
-    def visit_NumberLiteral(self, node):
+    def visit_NumberLiteral(self, node: NumberLiteral):
         # Aquí es donde vinculamos el valor real con el Enum
         if isinstance(node.value, float):
             return TokenType.FLOAT
         return TokenType.INT
 
-    def visit_StringLiteral(self, node):
+    def visit_StringLiteral(self, node: StringLiteral):
         return TokenType.STRING
 
-    def visit_Identifier(self, node):
+    def visit_Identifier(self, node: Identifier):
         # Si usamos una variable en una expresión, devolvemos su tipo guardado
         tipo = self.table.lookup(node.name)
         if not tipo:
