@@ -36,6 +36,45 @@ class SemanticAnalyzer(Visitor):
 
         # 3. Guardar en la tabla de símbolos
         self.table.define(node.name, node.var_type)
+    
+    def visit_PrintStmt(self, node: PrintStmt):
+        # Solo necesitamos ejecutar el análisis de la expresión
+        # Si la expresión es 'x + 5', el accept(self) se encargará de:
+        #   - Buscar 'x' en la tabla de símbolos (visit_Identifier)
+        #   - Verificar que 'x' y '5' sean compatibles (visit_BinaryOp)
+        #   - Devolver el tipo final.
+        
+        if node.expr:
+            tipo_resultante = node.expr.accept(self)
+            
+            # Opcional: lenguaje prohíbe imprimir algo? 
+            # Por ejemplo, si no permite funciones:
+            # if tipo_resultante == TokenType.FUNCTION:
+            #     raise Exception("No se pueden imprimir objetos de tipo funcion")
+            
+            return tipo_resultante
+
+    def visit_IfStmt(self, node: IfStmt):
+        # 1. Analizar la condición
+        # No importa si es 'x > 5' o 'true', accept(self) nos dará el tipo resultante
+        condition_type = node.condition.accept(self)
+
+        # 2. Validar que la condición sea booleana
+        # (Si tu lenguaje no tiene TokenType.BOOL, podrías usar INT y validar que sea 0 o 1)
+        if condition_type != TokenType.BOOL:
+            raise Exception(
+                f"Línea {node.line}: La condición del 'if' debe ser BOOL, "
+                f"pero se encontro {condition_type.name}"
+            )
+
+        # 3. Analizar el bloque 'then' (siempre existe)
+        # Si tu bloque es un BlockStmt, este ya debería llamar a push_scope() y pop_scope()
+        # node.then_branch.accept(self) 
+        ### Dejar esta parte? revisar las Palabras reservadas
+
+        # 4. Analizar el bloque 'else' (es opcional)
+        if node.else_branch:
+            node.else_branch.accept(self)        
 
     def visit_Assign(self, node: Assign):
         # 1. Verificar si la variable existe
