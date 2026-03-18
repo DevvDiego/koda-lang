@@ -1,7 +1,7 @@
 from src.models.token import TokenType, Token
 from src.models.nodes import (
     BlockStmt, IfStmt, ProgramNode, VarDecl, Assign, PrintStmt,
-    Identifier, NumberLiteral, StringLiteral,
+    Identifier, NumberLiteral, StringLiteral, BoolLiteral,
     UnaryOp, BinaryOp, WhileStmt
 )
 
@@ -72,7 +72,7 @@ class Parser:
             self.eat(TokenType.SEMICOLON)
             return PrintStmt(expr, p.line, p.column)
 
-        if t in (TokenType.INT, TokenType.FLOAT, TokenType.DOUBLE, TokenType.STRING):
+        if t in (TokenType.BOOL, TokenType.INT, TokenType.FLOAT, TokenType.DOUBLE, TokenType.STRING):
             type_tok = self.advance()
             name_tok = self.eat(TokenType.ID)
 
@@ -162,6 +162,10 @@ class Parser:
             txt = num_tok.value
             val = float(txt) if "." in txt else int(txt)
             return NumberLiteral(val, num_tok.line, num_tok.column)
+            
+        if tok.type == TokenType.TRUE or tok.type == TokenType.FALSE:
+            s = self.advance()
+            return BoolLiteral(s.value, s.line, s.column)
 
         if tok.type == TokenType.STRING_LITERAL:
             s = self.advance()

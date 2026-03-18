@@ -90,6 +90,9 @@ class NumberLiteral(LiteralNode):
 
 class StringLiteral(LiteralNode):
     pass
+    
+class BoolLiteral(LiteralNode):
+    pass
 
 
 
