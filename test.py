@@ -13,9 +13,9 @@ try:
     with open("main.kd") as f:
         src = f.read()
 
-except:
+except Exception as e:
     #cualquier error
-    print("Ocurrio un error al tratar de leer el archivo fuente")
+    print(f"Ocurrio un error al tratar de leer el archivo fuente {e}")
     print("se usara el src: 'int x = 10;'\n\n")
     src = "int x = 10;"
 
@@ -25,4 +25,4 @@ tokens = Lexer(src=src)
 ast = Parser(tokens).parse()
 analyzer = SemanticAnalyzer()
 analyzer.analyze(ast)
-print("Todo bien, continuar con otras fases...")
+print("LEX, PARS, SEMA ejecutados correctamente. Continuar con otras fases.")
