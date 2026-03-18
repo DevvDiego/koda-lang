@@ -24,4 +24,5 @@ except:
 tokens = Lexer(src=src)
 ast = Parser(tokens).parse()
 analyzer = SemanticAnalyzer()
-ast.accept(analyzer)
+analyzer.analyze(ast)
+print("Todo bien, continuar con otras fases...")
