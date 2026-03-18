@@ -1,5 +1,5 @@
 from src.models.nodes import (
-    BlockStmt, IfStmt, ProgramNode, VarDecl, Assign, PrintStmt,
+    BlockStmt, BoolLiteral, IfStmt, ProgramNode, VarDecl, Assign, PrintStmt,
     Identifier, NumberLiteral, StringLiteral,
     UnaryOp, BinaryOp, WhileStmt
 )
@@ -95,6 +95,9 @@ class SemanticAnalyzer(Visitor):
 
     def visit_StringLiteral(self, node: StringLiteral):
         return TokenType.STRING
+        
+    def visit_BoolLiteral(self, node: BoolLiteral):
+        return TokenType.BOOL
 
     def visit_Identifier(self, node: Identifier):
         # Si usamos una variable en una expresión, devolvemos su tipo guardado
