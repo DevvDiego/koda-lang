@@ -6,10 +6,16 @@ from src.models.nodes import (
 )
 
 PRECEDENCE = {
+    # Op aritmeticos
     TokenType.PLUS: 10,
     TokenType.MINUS: 10,
     TokenType.MULT: 20,
     TokenType.DIV: 20,
+    # Op booleanos
+    TokenType.LT: 5,
+    TokenType.GT: 5,
+    TokenType.LTE: 5,
+    TokenType.GTE: 5
 }
 
 UNARY_OPS = {TokenType.MINUS}

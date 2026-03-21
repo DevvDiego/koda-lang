@@ -151,9 +151,22 @@ class SemanticAnalyzer:
             TokenType.MINUS: self._check_arithmetic,
             TokenType.MULT: self._check_arithmetic,
             TokenType.DIV: self._check_arithmetic,
-            # Aqui se pueden añadir mas operadores (relacionales, logicos, etc.)
+            #comparaciones
+            TokenType.LT: self._check_comparison,
+            TokenType.GT: self._check_comparison,
+            TokenType.LTE: self._check_comparison,
+            TokenType.GTE: self._check_comparison,
         }
         return rules.get(op)
+    
+    def _check_comparison(self, left: TokenType, right: TokenType, line: int) -> TokenType:
+        """Verifica que se comparen numeros y devuelve siempre BOOL."""
+        if left in (TokenType.INT, TokenType.FLOAT) and right in (TokenType.INT, TokenType.FLOAT):
+            return TokenType.BOOL # El resultado de 5 > 3 siempre es un booleano
+        
+        raise Exception(
+            f"Error de tipos: No se puede comparar {left.name} con {right.name} (linea {line})"
+        )
 
     def _check_arithmetic(self, left: TokenType, right: TokenType, line: int) -> TokenType:
         """Regla para operaciones aritmeticas: promocion a FLOAT si algún operando es FLOAT."""
