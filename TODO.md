@@ -55,17 +55,19 @@ Estandares:
 
 #### Parser
 
-- [ ] Como generariamos una estructura para los nodos de operadores, de numeros literales o valores literales en si?
+- [x] Como generariamos una estructura para los nodos de operadores, de numeros literales o valores literales en si?
 
-- [ ] Deberiamos revisar temas como pratt parsing para asignarle un peso a cada tipo de nodo/operacion?
+- [x] Deberiamos revisar temas como pratt parsing para asignarle un peso a cada tipo de nodo/operacion?
 
-- [ ] Agregar un la linea al metodo de eat siguiendo el tipo del token
+- [x] Agregar un la linea al metodo de eat siguiendo el tipo del token
 
 #### Analizador Semantico
 
-- [ ] Refactorizar quiza? Para que el diseño sea menos acoplado pero mas entendible el como funciona (sin tantos saltos)
 - [ ] Como adaptar los demas tipos de dato (bool, void y similares) con los bloques de IfStmt o WhileStmt
-- [ ] Comprender el pattern design de Visitor  que se implemento para el analisis semantico y los nodos.
+
+- [x] Refactorizar quiza? Para que el diseño sea menos acoplado pero mas entendible el como funciona (sin tantos saltos)
+
+- [x] Comprender el pattern design de Visitor  que se implemento para el analisis semantico y los nodos.
 
 ---
 
@@ -75,9 +77,9 @@ Estandares:
 
 - [ ] Uitlizar javascript para almacenar el contenido que puede haber dentro del textarea
 
-- [ ] Agregar estilos basicos a la pagina (NADA COMPLEJO, y con fondo color #262626 por favor.)
+- [x] Agregar estilos basicos a la pagina (NADA COMPLEJO, y con fondo color #262626 por favor.)
 
-- [ ] Averiguar que mas podriamos hacer con los templates de Jinja, quiza hacer una interfaz bonita?
+- [x] Averiguar que mas podriamos hacer con los templates de Jinja, quiza hacer una interfaz bonita?
 
 - [x] Averiguar una forma de que podamos responder nuevamente la salida de el lexer hacia la pagina
 
