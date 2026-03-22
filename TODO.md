@@ -10,9 +10,11 @@ Estandares:
 
 ### General
 
+- [ ] Agregar todas las palabras reservadas con su nodo de parser, y su analisis semantico
+
 - [ ] Cambiar la lista TODO a issues de github. Revisar conveniencia
 
-- [ ] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
+- [x] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
 - [x] Generar un archivo orquestrador que maneje logica de obtencion de archivos (y la interfaz probablemente)
 
@@ -24,8 +26,6 @@ Estandares:
 #### Lexer
 
 - [ ] Añadir identificacion del "." (Un punto) para poder manejar numeros de tipo flotante (¿Quiza deba ser en la misma identificacion de numeros haciendo algo similar como con la identificacion de doublequots?)
-
-- [ ] Agregar todas las Palabras Reservadas dentro de la clase TokenType
 
 - [ ] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
 
