@@ -1,6 +1,7 @@
 # TODO 
-Utiliza [x] para marcar una tarea completada y [] para una tarea NO completada.
-Las tareas completadas se mantienen aqui para tener un registro de las mismas. Para crear una nueva tarea utiliza "- []" para enlistarlos y marcarlos como no completados
+Utiliza [x] para marcar una tarea completada y [ ] para una tarea NO completada.
+Las tareas completadas se mantienen aqui para tener un registro de las mismas. 
+Para crear una nueva tarea utiliza "- [ ]" para enlistarlos y marcarlos como no completados
 
 Estandares:
 - Mantener las tareas ya completadas hasta abajo de su categoria
@@ -9,9 +10,9 @@ Estandares:
 
 ### General
 
-- [] Cambiar la lista TODO a issues de github. Revisar conveniencia
+- [ ] Cambiar la lista TODO a issues de github. Revisar conveniencia
 
-- [] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
+- [ ] Verificar con el equipo si entienden POO a algun nivel, para poder simplificar la logica dentro de una clase (Usando solo el concepo de encapsulamiento)
 
 - [x] Generar un archivo orquestrador que maneje logica de obtencion de archivos (y la interfaz probablemente)
 
@@ -22,13 +23,13 @@ Estandares:
 ### Compilador
 #### Lexer
 
-- [] Añadir identificacion del "." (Un punto) para poder manejar numeros de tipo flotante (¿Quiza deba ser en la misma identificacion de numeros haciendo algo similar como con la identificacion de doublequots?)
+- [ ] Añadir identificacion del "." (Un punto) para poder manejar numeros de tipo flotante (¿Quiza deba ser en la misma identificacion de numeros haciendo algo similar como con la identificacion de doublequots?)
 
-- [] Agregar todas las Palabras Reservadas dentro de la clase TokenType
+- [ ] Agregar todas las Palabras Reservadas dentro de la clase TokenType
 
-- [] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
+- [ ] En la clase TokenType, quizas añadir una optimizacion seria lo justo? un map en vez del bucle para keyword_exists
 
-- [] Asegurarse que el parsing se detenga en casos especificos, quiza usando raise?
+- [ ] Asegurarse que el parsing se detenga en casos especificos, quiza usando raise?
 
 - [x] Dado caso que no encuentre el token doublequot de cierre que hariamos?
 
@@ -54,29 +55,29 @@ Estandares:
 
 #### Parser
 
-- [] Como generariamos una estructura para los nodos de operadores, de numeros literales o valores literales en si?
+- [ ] Como generariamos una estructura para los nodos de operadores, de numeros literales o valores literales en si?
 
-- [] Deberiamos revisar temas como pratt parsing para asignarle un peso a cada tipo de nodo/operacion?
+- [ ] Deberiamos revisar temas como pratt parsing para asignarle un peso a cada tipo de nodo/operacion?
 
-- [] Agregar un la linea al metodo de eat siguiendo el tipo del token
+- [ ] Agregar un la linea al metodo de eat siguiendo el tipo del token
 
 #### Analizador Semantico
 
-- [] Refactorizar quiza? Para que el diseño sea menos acoplado pero mas entendible el como funciona (sin tantos saltos)
-- [] Como adaptar los demas tipos de dato (bool, void y similares) con los bloques de IfStmt o WhileStmt
-- [] Comprender el pattern design de Visitor  que se implemento para el analisis semantico y los nodos.
+- [ ] Refactorizar quiza? Para que el diseño sea menos acoplado pero mas entendible el como funciona (sin tantos saltos)
+- [ ] Como adaptar los demas tipos de dato (bool, void y similares) con los bloques de IfStmt o WhileStmt
+- [ ] Comprender el pattern design de Visitor  que se implemento para el analisis semantico y los nodos.
 
 ---
 
 ### Interfaz web
 
-- [] La interfaz debe ser similar a un editor de archivos (VS_CODE) almenos que tenga las funciones de abrir archivo y guardar archivo
+- [ ] La interfaz debe ser similar a un editor de archivos (VS_CODE) almenos que tenga las funciones de abrir archivo y guardar archivo
 
-- [] Uitlizar javascript para almacenar el contenido que puede haber dentro del textarea
+- [ ] Uitlizar javascript para almacenar el contenido que puede haber dentro del textarea
 
-- [] Agregar estilos basicos a la pagina (NADA COMPLEJO, y con fondo color #262626 por favor.)
+- [ ] Agregar estilos basicos a la pagina (NADA COMPLEJO, y con fondo color #262626 por favor.)
 
-- [] Averiguar que mas podriamos hacer con los templates de Jinja, quiza hacer una interfaz bonita?
+- [ ] Averiguar que mas podriamos hacer con los templates de Jinja, quiza hacer una interfaz bonita?
 
 - [x] Averiguar una forma de que podamos responder nuevamente la salida de el lexer hacia la pagina
 
