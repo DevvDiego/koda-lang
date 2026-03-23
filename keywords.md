@@ -17,12 +17,12 @@ Ejemplo: where (x == 1) { ... }
 Ejemplo: else { ... }
 ```
 
-`switch` / `case`
+<!--`switch` / `case`
 - **Token:** `SWITCH` / `CASE`
 - **Descripción:** Selección múltiple y caso específico a tratar.
 ```text
 Ejemplo: switch (opcion) { case 1: ... }
-```
+```-->
 
 `do` / `while`
 - **Token:** `DO` / `WHILE`
