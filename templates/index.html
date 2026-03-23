@@ -339,25 +339,33 @@
       <div id="panel-output" class="panel-content active">
         {% if output %}
           <pre>{{ output }}</pre>
+        {% else %}
+          <div class="log-entry" style="color:#fff">No output from server</div>
         {% endif %}
       </div>
       
       <div id="panel-tokens" class="panel-content">
         {% if tokens %}
           <pre>{{ tokens }}</pre>
+          {% else %}
+            <div class="log-entry" style="color:#fff">No output from server</div>
         {% endif %}
       </div>
 
       <div id="panel-debug" class="panel-content">
         {% if ast %}
           <pre>{{ ast }}</pre>
+          {% else %}
+            <div class="log-entry" style="color:#fff">No output from server</div>
         {% endif %}
       </div>
 
       <div id="panel-terminal" class="panel-content">
-        <div class="log-entry" style="color:#fff">Koda Web Terminal [V1.0.0]</div>
+        <!--<div class="log-entry" style="color:#fff">Koda Web Terminal [V1.0.0]</div>-->
         {% if semantic %}
           <pre>{{ semantic }}</pre>
+          {% else %}
+            <div class="log-entry" style="color:#fff">No output from server</div>
         {% endif %}
       </div>
 
