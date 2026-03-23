@@ -73,9 +73,13 @@ Estandares:
 
 ### Interfaz web
 
-- [ ] La interfaz debe ser similar a un editor de archivos (VS_CODE) almenos que tenga las funciones de abrir archivo y guardar archivo
+- [ ] Quiza agregar algo de syntax highlight?
 
-- [ ] Uitlizar javascript para almacenar el contenido que puede haber dentro del textarea
+- [ ] Averiguar porque al imprimir tokens en la interfaz, no se muestra en forma de lista vertical
+
+- [x] La interfaz debe ser similar a un editor de archivos (VS_CODE) almenos que tenga las funciones de abrir archivo y guardar archivo
+
+- [x] Uitlizar javascript para almacenar el contenido que puede haber dentro del textarea
 
 - [x] Agregar estilos basicos a la pagina (NADA COMPLEJO, y con fondo color #262626 por favor.)
 
