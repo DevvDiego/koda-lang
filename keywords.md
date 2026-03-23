@@ -1,4 +1,4 @@
-# Especificación de Nomenclatura (Lexer v2.0)
+# Keyword documentation for Koda language
 
 ## PR_CONTROL (Flujo)
 
