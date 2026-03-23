@@ -125,6 +125,48 @@
     .nav-btn.primary:hover {
       background: #1177bb;
     }
+    
+    .nav-icon {
+      width: 18px;
+      height: 18px;
+      background-color: currentColor; /* Usa el color del texto del botón */
+      display: inline-block;
+      
+      /* Asegúrate de que estas rutas sean correctas */
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
+    
+    /* Clases específicas para cada icono */
+    .icon-arrow { 
+        -webkit-mask-image: url('/static/icons/arrow.svg'); 
+        mask-image: url('/static/icons/arrow.svg'); 
+    }
+    
+    .icon-file { 
+        -webkit-mask-image: url('/static/icons/file.svg'); 
+        mask-image: url('/static/icons/file.svg'); 
+    }
+    
+    .icon-floppy { 
+        -webkit-mask-image: url('/static/icons/floppy.svg'); 
+        mask-image: url('/static/icons/floppy.svg'); 
+    }
+    
+    .icon-folder { 
+        -webkit-mask-image: url('/static/icons/folder.svg'); 
+        mask-image: url('/static/icons/folder.svg');
+    }
+    
+    .icon-hamburguer { 
+        -webkit-mask-image: url('/static/icons/hamburguer.svg'); 
+        mask-image: url('/static/icons/hamburguer.svg'); 
+    }
+
 
     /* ---------- ÁREA PRINCIPAL ---------- */
     .main {
@@ -281,25 +323,29 @@
     <div class="sidebar-header">
       <span class="sidebar-title">EXPLORADOR</span>
       <button id="toggleSidebar" style="background:none; border:none; color:inherit; cursor:pointer;">
-        <svg viewBox="0 0 24 24" width="18" fill="currentColor">
+        <!--<svg viewBox="0 0 24 24" width="18" fill="currentColor">
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-        </svg>
+        </svg>-->
+        <span class="nav-icon icon-hamburguer"></span>
       </button>
     </div>
 
     <div class="sidebar-content">
       <button class="nav-btn" id="btnNew">
-        <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13,9V3.5L18.5,9H13Z" /></svg>
+        <!--<svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13,9V3.5L18.5,9H13Z" /></svg>-->
+        <span class="nav-icon icon-file"></span>
         <span>Nuevo Archivo</span>
       </button>
 
       <button class="nav-btn" id="btnOpen">
-        <svg viewBox="0 0 24 24"><path d="M20,18H4V8H20M20,6H12L10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6Z" /></svg>
+        <!--<svg viewBox="0 0 24 24"><path d="M20,18H4V8H20M20,6H12L10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6Z" /></svg>-->
+        <span class="nav-icon icon-folder"></span>
         <span>Abrir</span>
       </button>
 
       <button class="nav-btn" id="btnSave">
-        <svg viewBox="0 0 24 24"><path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" /></svg>
+        <!--<svg viewBox="0 0 24 24"><path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" /></svg>-->
+        <span class="nav-icon icon-floppy"></span>
         <span>Guardar</span>
       </button>
 
@@ -309,7 +355,8 @@
         <input type="hidden" name="filename" id="compileFilename">
         <input type="hidden" name="content" id="compileContent">
         <button type="submit" class="nav-btn primary">
-          <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>
+          <!--<svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>-->
+          <span class="nav-icon icon-arrow"></span>
           <span>Compilar Koda</span>
         </button>
       </form>
