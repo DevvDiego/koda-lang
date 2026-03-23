@@ -14,10 +14,10 @@ class SemanticAnalyzer:
         # Pila de ambitos (cada ambito es una tabla de simbolos propia)
         self.scope_stack = ScopeStack()
 
-    def analyze(self, node: ProgramNode) -> None:
+    def analyze(self, node: ProgramNode) -> str:
         """Punto de entrada: inicia el analisis desde el nodo raiz."""
         node.analyze(self, self.scope_stack)
-        print("--- Analisis semantico finalizado con exito ---")
+        return "--- Analisis semantico finalizado con exito ---"
 
     # --- Metodos para cada tipo de nodo ---
 
